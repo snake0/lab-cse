@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="lab1"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/nathan/lab-cse/lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/nathan/lab-cse/lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/nathan/lab-cse/lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lab1">
+				<Option output="/Users/nathan/lab-cse/lab1/cmake-build-debug/lab1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nathan/lab-cse/lab1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/nathan/lab-cse/lab1/."/>
+					<Add directory="/Users/nathan/lab-cse/lab1/lang"/>
+					<Add directory="/Users/nathan/lab-cse/lab1/rpc"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab1"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lab1/fast">
+				<Option output="/Users/nathan/lab-cse/lab1/cmake-build-debug/lab1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nathan/lab-cse/lab1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/nathan/lab-cse/lab1/."/>
+					<Add directory="/Users/nathan/lab-cse/lab1/lang"/>
+					<Add directory="/Users/nathan/lab-cse/lab1/rpc"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab1/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/nathan/lab-cse/lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/nathan/lab-cse/lab1/demo_client.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/demo_protocol.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/demo_server.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_client.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_client.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_protocol.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_server.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_server.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/extent_smain.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/fuse.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/gettime.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/gettime.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/handle.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/handle.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/inode_manager.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/inode_manager.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lang/algorithm.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lang/verify.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_client.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_client.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_client_cache.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_client_cache.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_demo.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_protocol.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_server.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_server.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_server_cache.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_server_cache.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_smain.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/lock_tester.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/connection.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/fifo.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/jsl_log.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/marshall.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/method_thread.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/pollmgr.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/rpc.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/slock.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/thr_pool.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/test-lab-3-a.c">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/test-lab-3-b.c">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/test-lab2-part1-g.c">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/test-lab2-part2-a.c">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/test-lab2-part2-b.c">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/tprintf.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/yfs_client.cc">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/yfs_client.h">
+			<Option target="lab1"/>
+		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
