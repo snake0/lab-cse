@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "lock_client.h"
+#include "lock_client_cache.h"
 #include "extent_client.h"
 #include <vector>
 
@@ -12,7 +12,7 @@
 
 class yfs_client {
     extent_client *ec;
-    lock_client *lc;
+    lock_client_cache *lc;
 public:
 
     typedef unsigned long long inum;
@@ -77,7 +77,7 @@ public:
 
     yfs_client(std::string extent_dst, std::string lock_dst) {
       ec = new extent_client(extent_dst);
-      lc = new lock_client(lock_dst);
+      lc = new lock_client_cache(lock_dst);
       if (ec->put(1, "") != extent_protocol::OK)
         printf("error init root dir\n"); // XYB: init root dir
     }
@@ -114,7 +114,6 @@ public:
     int symlink(inum, const char *, const char *, inum &);
 
     int readlink(inum, std::string &);
-
 
 };
 
