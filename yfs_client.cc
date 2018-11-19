@@ -408,16 +408,13 @@ int yfs_client::_unlink(inum parent, const char *name) {
      */
 
     // lookup in parent directory
-    lc->acquire(parent);
     bool found = false;
     inum toremove;
     r = _lookup(parent, name, found, toremove);
     if (!found) {
         r = NOENT;
-        lc->release(parent);
         ERR("unlink");
     }
-    lc->acquire(toremove);
     // remove from disk
     ec->remove(toremove);
 
@@ -428,8 +425,6 @@ int yfs_client::_unlink(inum parent, const char *name) {
     buf.replace(buf.find(ent), ent.size(), "");
     if ((r = ec->put(parent, buf)) != OK) ERR("unlink\n");
 
-    lc->release(toremove);
-    lc->release(parent);
 
     return r;
 }

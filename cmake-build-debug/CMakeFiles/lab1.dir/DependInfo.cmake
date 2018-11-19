@@ -36,6 +36,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/nathan/lab-cse/lab1/lock_server_cache.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/lock_server_cache.cc.o"
   "/Users/nathan/lab-cse/lab1/lock_smain.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/lock_smain.cc.o"
   "/Users/nathan/lab-cse/lab1/lock_tester.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/lock_tester.cc.o"
+  "/Users/nathan/lab-cse/lab1/rpc/rpc.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/rpc/rpc.cc.o"
   "/Users/nathan/lab-cse/lab1/yfs_client.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/yfs_client.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

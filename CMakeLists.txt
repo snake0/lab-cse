@@ -19,6 +19,7 @@ add_executable(lab1
         rpc/rpc.h
         rpc/slock.h
         rpc/thr_pool.h
+        rpc/rpc.cc
         demo_client.cc
         demo_protocol.h
         demo_server.cc

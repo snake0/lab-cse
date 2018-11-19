@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/lab1.dir/rpc/rpc.cc.o"
   "CMakeFiles/lab1.dir/demo_client.cc.o"
   "CMakeFiles/lab1.dir/demo_server.cc.o"
   "CMakeFiles/lab1.dir/extent_client.cc.o"

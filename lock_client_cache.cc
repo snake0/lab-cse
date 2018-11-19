@@ -66,8 +66,6 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
         lock_pool[lid] = lock_t();
     lock_t &lock = lock_pool[lid];
 
-    // we must new a conditional variable
-    // or there will be a confusing bug
     cond_t *waiter = new cond_t();
     // enqueue when client call acquire
     // dequeue when client call release
