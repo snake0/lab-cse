@@ -31,8 +31,7 @@ public:
     };
 };
 
-class mutex_t {
-public:
+struct mutex_t {
     pthread_mutex_t mutex;
 
     mutex_t() : mutex() {
@@ -48,11 +47,9 @@ public:
     }
 };
 
-
-class cond_t {
-private:
+struct cond_t {
     pthread_cond_t cond;
-public:
+
     cond_t() : cond() {
         VERIFY(pthread_cond_init(&cond, NULL) == 0);
     }
