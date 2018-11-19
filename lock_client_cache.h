@@ -37,8 +37,7 @@ private:
         std::queue<cond_t *> queue;
 
         lock_t() : revoke_later(false),
-                   retry_earlier(false),
-                   state(NONE) {}
+                   retry_earlier(false), state(NONE) {}
     };
 
     int rlock_port;

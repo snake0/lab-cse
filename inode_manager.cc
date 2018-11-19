@@ -2,7 +2,7 @@
 
 // disk layer -----------------------------------------
 
-disk::disk() {
+disk::disk() : blocks() {
     bzero(blocks, sizeof(blocks));
 }
 
@@ -81,7 +81,7 @@ block_manager::free_block(uint bnum) {
 
 // The layout of disk should be like this:
 // |<-sb->|<-free block bitmap->|<-inode table->|<-data->|
-block_manager::block_manager() {
+block_manager::block_manager() : sb() {
     d = new disk();
 
     // format the disk

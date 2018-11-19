@@ -25,8 +25,8 @@ int extent_server::put(extent_protocol::extentid_t id, std::string buf, int &) {
     id &= 0x7fffffff;
 
     const char *cbuf = buf.c_str();
-    int size = buf.size();
-    im->write_file(id, cbuf, size);
+    int size = static_cast<int>(buf.size());
+    im->write_file(static_cast<uint32_t>(id), cbuf, size);
 
     return extent_protocol::OK;
 }
@@ -39,11 +39,11 @@ int extent_server::get(extent_protocol::extentid_t id, std::string &buf) {
     int size = 0;
     char *cbuf = NULL;
 
-    im->read_file(id, &cbuf, &size);
+    im->read_file(static_cast<uint32_t>(id), &cbuf, &size);
     if (size == 0)
         buf = "";
     else {
-        buf.assign(cbuf, size);
+        buf.assign(cbuf, static_cast<unsigned long>(size));
         free(cbuf);
     }
 
@@ -57,7 +57,7 @@ int extent_server::getattr(extent_protocol::extentid_t id, extent_protocol::attr
 
     extent_protocol::attr attr;
     memset(&attr, 0, sizeof(attr));
-    im->getattr(id, attr);
+    im->getattr(static_cast<uint32_t>(id), attr);
     a = attr;
 
     return extent_protocol::OK;
@@ -67,7 +67,7 @@ int extent_server::remove(extent_protocol::extentid_t id, int &) {
     printf("extent_server: write %lld\n", id);
 
     id &= 0x7fffffff;
-    im->remove_file(id);
+    im->remove_file(static_cast<uint32_t>(id));
 
     return extent_protocol::OK;
 }

@@ -8,7 +8,7 @@
 
 #include "jsl_log.h"
 
-// Main loop of lock_server
+// Main loop of lock_server_cache
 
 int
 main(int argc, char *argv[]) {

@@ -51,18 +51,18 @@ public:
 
 class cond_t {
 private:
-    pthread_cond_t cv;
+    pthread_cond_t cond;
 public:
-    cond_t() : cv() {
-        VERIFY(pthread_cond_init(&cv, NULL) == 0);
+    cond_t() : cond() {
+        VERIFY(pthread_cond_init(&cond, NULL) == 0);
     }
 
     void wait(mutex_t &lock) {
-        VERIFY(pthread_cond_wait(&cv, &lock.mutex) == 0);
+        VERIFY(pthread_cond_wait(&cond, &lock.mutex) == 0);
     }
 
     void signal() {
-        VERIFY(pthread_cond_signal(&cv) == 0);
+        VERIFY(pthread_cond_signal(&cond) == 0);
     }
 };
 
