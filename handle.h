@@ -28,50 +28,56 @@
 #include "rpc.h"
 
 struct hinfo {
-  rpcc *cl;
-  int refcnt;
-  bool del;
-  std::string m;
-  pthread_mutex_t cl_mutex;
+    rpcc *cl;
+    int refcnt;
+    bool del;
+    std::string m;
+    pthread_mutex_t cl_mutex;
 };
 
 class handle {
- private:
-  struct hinfo *h;
- public:
-  handle(std::string m);
-  ~handle();
-  /* safebind will try to bind with the rpc server on the first call.
-   * Since bind may block, the caller probably should not hold a mutex
-   * when calling safebind.
-   *
-   * return: 
-   *   if the first safebind succeeded, all later calls would return
-   *   a rpcc object; otherwise, all later calls would return NULL.
-   *
-   * Example:
-   *   handle h(dst);
-   *   XXX_protocol::status ret;
-   *   if (h.safebind()) {
-   *     ret = h.safebind()->call(...);
-   *   }
-   *   if (!h.safebind() || ret != XXX_protocol::OK) {
-   *     // handle failure
-   *   }
-   */
-  rpcc *safebind();
+private:
+    struct hinfo *h;
+public:
+    handle(std::string m);
+
+    ~handle();
+
+    /* safebind will try to bind with the rpc server on the first call.
+     * Since bind may block, the caller probably should not hold a mutex
+     * when calling safebind.
+     *
+     * return:
+     *   if the first safebind succeeded, all later calls would return
+     *   a rpcc object; otherwise, all later calls would return NULL.
+     *
+     * Example:
+     *   handle h(dst);
+     *   XXX_protocol::status ret;
+     *   if (h.safebind()) {
+     *     ret = h.safebind()->call(...);
+     *   }
+     *   if (!h.safebind() || ret != XXX_protocol::OK) {
+     *     // handle failure
+     *   }
+     */
+    rpcc *safebind();
 };
 
 class handle_mgr {
- private:
-  pthread_mutex_t handle_mutex;
-  std::map<std::string, struct hinfo *> hmap;
- public:
-  handle_mgr();
-  struct hinfo *get_handle(std::string m);
-  void done_handle(struct hinfo *h);
-  void delete_handle(std::string m);
-  void delete_handle_wo(std::string m);
+private:
+    pthread_mutex_t handle_mutex;
+    std::map<std::string, struct hinfo *> hmap;
+public:
+    handle_mgr();
+
+    struct hinfo *get_handle(std::string m);
+
+    void done_handle(struct hinfo *h);
+
+    void delete_handle(std::string m);
+
+    void delete_handle_wo(std::string m);
 };
 
 extern class handle_mgr mgr;
