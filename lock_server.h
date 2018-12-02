@@ -13,7 +13,6 @@
 class lock_server {
 private:
     struct lock_t {
-    public:
         enum {
             FREE, LOCKED
         } state;

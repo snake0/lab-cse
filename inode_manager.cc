@@ -213,6 +213,7 @@ inode_manager::put_inode(uint inum, struct inode *inode) {
     bm->write_block(IBLOCK(inum, bm->sb.nblocks), buf);
 }
 
+#define MIN(a, b) (a < b ? a : b)
 
 /* Get all the data of a file by inum.
  * Return alloced data, should be freed by caller. */

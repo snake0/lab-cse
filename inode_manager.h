@@ -73,7 +73,6 @@ public:
 
 #define NDIRECT 32
 #define NINDIRECT (BLOCK_SIZE / sizeof(uint))
-#define MIN(a, b) ((a)<(b) ? (a) : (b))
 
 
 typedef struct inode {
