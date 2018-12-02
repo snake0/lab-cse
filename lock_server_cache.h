@@ -8,20 +8,20 @@
 class lock_server_cache {
 private:
     struct lock_t {
-        std::string holder;
-        std::string retryer;
-        std::set<std::string> waiter;
+        std::string owner_client;
+        std::string retry_client;
+        std::set<std::string> wait_clients;
         enum {
             FREE, LOCKED, REVOKING, RETRYING
         } state;
 
         lock_t() : state(FREE) {}
 
-        ~lock_t() { waiter.clear(); }
+        ~lock_t() { wait_clients.clear(); }
     };
 
     int nacquire;
-    mutex_t mutex;
+    mutex_t server_mutex;
     std::map<lock_protocol::lockid_t, lock_t> lock_pool;
 
     lock_protocol::status call_client(std::string cid,

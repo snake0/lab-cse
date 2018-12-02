@@ -744,6 +744,33 @@ proto/output/namenode.pb.cc.s:
 	$(MAKE) -f CMakeFiles/lab1.dir/build.make CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.s
 .PHONY : proto/output/namenode.pb.cc.s
 
+rpc/rpc.o: rpc/rpc.cc.o
+
+.PHONY : rpc/rpc.o
+
+# target to build an object file
+rpc/rpc.cc.o:
+	$(MAKE) -f CMakeFiles/lab1.dir/build.make CMakeFiles/lab1.dir/rpc/rpc.cc.o
+.PHONY : rpc/rpc.cc.o
+
+rpc/rpc.i: rpc/rpc.cc.i
+
+.PHONY : rpc/rpc.i
+
+# target to preprocess a source file
+rpc/rpc.cc.i:
+	$(MAKE) -f CMakeFiles/lab1.dir/build.make CMakeFiles/lab1.dir/rpc/rpc.cc.i
+.PHONY : rpc/rpc.cc.i
+
+rpc/rpc.s: rpc/rpc.cc.s
+
+.PHONY : rpc/rpc.s
+
+# target to generate assembly for a file
+rpc/rpc.cc.s:
+	$(MAKE) -f CMakeFiles/lab1.dir/build.make CMakeFiles/lab1.dir/rpc/rpc.cc.s
+.PHONY : rpc/rpc.cc.s
+
 test-lab-3-a.o: test-lab-3-a.c.o
 
 .PHONY : test-lab-3-a.o
@@ -984,6 +1011,9 @@ help:
 	@echo "... proto/output/namenode.pb.o"
 	@echo "... proto/output/namenode.pb.i"
 	@echo "... proto/output/namenode.pb.s"
+	@echo "... rpc/rpc.o"
+	@echo "... rpc/rpc.i"
+	@echo "... rpc/rpc.s"
 	@echo "... test-lab-3-a.o"
 	@echo "... test-lab-3-a.i"
 	@echo "... test-lab-3-a.s"

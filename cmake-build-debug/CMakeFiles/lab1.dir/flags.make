@@ -9,7 +9,7 @@ C_DEFINES =
 
 C_INCLUDES = -I/Users/nathan/lab-cse/lab1/. -I/Users/nathan/lab-cse/lab1/lang -I/Users/nathan/lab-cse/lab1/proto/output -I/Users/nathan/lab-cse/lab1/proto/output/google -I/Users/nathan/lab-cse/lab1/proto/output/google/protobuf -I/Users/nathan/lab-cse/lab1/proto/output/google/protobuf/io -I/Users/nathan/lab-cse/lab1/proto/output/google/protobuf/stubs -I/Users/nathan/lab-cse/lab1/proto/output/google/protobuf/util -I/Users/nathan/lab-cse/lab1/rpc 
 
-CXX_FLAGS = -g   -std=gnu++98
+CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 

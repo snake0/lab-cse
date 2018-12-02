@@ -34,7 +34,7 @@ private:
         enum {
             NONE, ACQUIRING, FREE, RELEASING, LOCKED
         } state;
-        std::queue<cond_t *> queue;
+        std::queue<cond_t *> client_queue;
 
         lock_t() : revoke_later(false),
                    retry_earlier(false), state(NONE) {}
@@ -43,7 +43,7 @@ private:
     int rlock_port;
     std::string hostname;
     std::string id;
-    mutex_t mutex;
+    mutex_t client_mutex;
     std::map<lock_protocol::lockid_t, lock_t> lock_pool;
 
     lock_protocol::status acquire_server(lock_protocol::lockid_t, lock_t &, cond_t *);

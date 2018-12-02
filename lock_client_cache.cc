@@ -29,9 +29,9 @@ lock_client_cache::lock_client_cache(std::string xdst, class lock_release_user *
 }
 
 lock_client_cache::~lock_client_cache() {
-    mutex.lock();
+    client_mutex.lock();
     lock_pool.clear();
-    mutex.unlock();
+    client_mutex.unlock();
 }
 
 lock_protocol::status lock_client_cache::
@@ -39,18 +39,18 @@ acquire_server(lock_protocol::lockid_t lid, lock_t &lock, cond_t *waiter) {
     int r, ret;
     lock.state = lock_t::ACQUIRING;
     while (lock.state == lock_t::ACQUIRING) {
-        mutex.unlock();
+        client_mutex.unlock();
         ret = cl->call(lock_protocol::acquire, lid, id, r);
-        mutex.lock();
+        client_mutex.lock();
         if (ret == lock_protocol::OK) {
             // successfully receive a lock from server
             lock.state = lock_t::LOCKED;
-            mutex.unlock();
+            client_mutex.unlock();
             return lock_protocol::OK;
         } else if (ret == lock_protocol::RETRY) {
             // no retry rpc has been received
             if (!lock.retry_earlier)
-                waiter->wait(mutex);
+                waiter->wait(client_mutex);
             lock.retry_earlier = false;
             // try again
         }
@@ -60,7 +60,7 @@ acquire_server(lock_protocol::lockid_t lid, lock_t &lock, cond_t *waiter) {
 
 lock_protocol::status
 lock_client_cache::acquire(lock_protocol::lockid_t lid) {
-    mutex.lock();
+    client_mutex.lock();
     if (lock_pool.find(lid) == lock_pool.end())
         lock_pool[lid] = lock_t();
     lock_t &lock = lock_pool[lid];
@@ -69,32 +69,32 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
     // enqueue when client call acquire
     // dequeue when client call release
 
-    if (lock.queue.empty()) {
-        lock.queue.push(waiter);
+    if (lock.client_queue.empty()) {
+        lock.client_queue.push(waiter);
         if (lock.state == lock_t::NONE)
             // to acquire lock from server
             return acquire_server(lid, lock, waiter);
         else if (lock.state == lock_t::FREE) {
             // get a lock from client cache
             lock.state = lock_t::LOCKED;
-            mutex.unlock();
+            client_mutex.unlock();
             return lock_protocol::OK;
         } else {
             // other client is acquiring or releasing the lock
-            waiter->wait(mutex);
+            waiter->wait(client_mutex);
             return acquire_server(lid, lock, waiter);
         }
     } else {
-        lock.queue.push(waiter);
-        waiter->wait(mutex);
+        lock.client_queue.push(waiter);
+        waiter->wait(client_mutex);
         if (lock.state == lock_t::NONE)
             return acquire_server(lid, lock, waiter);
         else if (lock.state == lock_t::FREE) {
             lock.state = lock_t::LOCKED;
-            mutex.unlock();
+            client_mutex.unlock();
             return lock_protocol::OK;
         } else if (lock.state == lock_t::LOCKED) {
-            mutex.unlock();
+            client_mutex.unlock();
             return lock_protocol::OK;
         } else
             return 0;
@@ -104,9 +104,9 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
 
 lock_protocol::status
 lock_client_cache::release(lock_protocol::lockid_t lid) {
-    mutex.lock();
+    client_mutex.lock();
     if (lock_pool.find(lid) == lock_pool.end()) {
-        mutex.unlock();
+        client_mutex.unlock();
         return lock_protocol::NOENT;
     }
     int ret = rlock_protocol::OK;
@@ -115,54 +115,54 @@ lock_client_cache::release(lock_protocol::lockid_t lid) {
     // revoke rpc has been received earlier
     if (lock.revoke_later) {
         lock.state = lock_t::RELEASING;
-        mutex.unlock();
+        client_mutex.unlock();
         int r;
         ret = cl->call(lock_protocol::release, lid, id, r);
-        mutex.lock();
+        client_mutex.lock();
         lock.state = lock_t::NONE;
     } else
         lock.state = lock_t::FREE;
 
     // dequeue waiter
-    delete lock.queue.front();
-    lock.queue.pop();
-    if (!lock.queue.empty()) {
+    delete lock.client_queue.front();
+    lock.client_queue.pop();
+    if (!lock.client_queue.empty()) {
         if (!lock.revoke_later)
             lock.state = lock_t::LOCKED;
-        lock.queue.front()->signal();
+        lock.client_queue.front()->signal();
     }
     // clear state
     lock.revoke_later = false;
-    mutex.unlock();
+    client_mutex.unlock();
     return ret;
 }
 
 rlock_protocol::status
 lock_client_cache::revoke_handler(lock_protocol::lockid_t lid, int &) {
     int ret = rlock_protocol::OK;
-    mutex.lock();
+    client_mutex.lock();
     lock_t &lock = lock_pool[lid];
     if (lock.state == lock_t::FREE) {
         // ok to release back to
         int r;
         lock.state = lock_t::RELEASING;
-        mutex.unlock();
+        client_mutex.unlock();
         ret = cl->call(lock_protocol::release, lid, id, r);
-        mutex.lock();
+        client_mutex.lock();
         lock.state = lock_t::NONE;
-        if (!lock.queue.empty())
-            lock.queue.front()->signal();
+        if (!lock.client_queue.empty())
+            lock.client_queue.front()->signal();
     } else lock.revoke_later = true;
-    mutex.unlock();
+    client_mutex.unlock();
     return ret;
 }
 
 rlock_protocol::status
 lock_client_cache::retry_handler(lock_protocol::lockid_t lid, int &) {
-    mutex.lock();
+    client_mutex.lock();
     lock_t &lock = lock_pool[lid];
     lock.retry_earlier = true;
-    lock.queue.front()->signal();
-    mutex.unlock();
+    lock.client_queue.front()->signal();
+    client_mutex.unlock();
     return rlock_protocol::OK;
 }

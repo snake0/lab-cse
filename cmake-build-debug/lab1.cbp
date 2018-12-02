@@ -526,6 +526,9 @@
 		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/pollmgr.h">
 			<Option target="lab1"/>
 		</Unit>
+		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/rpc.cc">
+			<Option target="lab1"/>
+		</Unit>
 		<Unit filename="/Users/nathan/lab-cse/lab1/rpc/rpc.h">
 			<Option target="lab1"/>
 		</Unit>

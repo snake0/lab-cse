@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/lab1.dir/proto/output/common.pb.cc.o"
   "CMakeFiles/lab1.dir/proto/output/datanode.pb.cc.o"
   "CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.o"
+  "CMakeFiles/lab1.dir/rpc/rpc.cc.o"
   "CMakeFiles/lab1.dir/datanode.cc.o"
   "CMakeFiles/lab1.dir/datanode_base.cc.o"
   "CMakeFiles/lab1.dir/demo_client.cc.o"

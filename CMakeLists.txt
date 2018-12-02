@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(lab1)
 
-set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories(.)
 include_directories(lang)
@@ -115,6 +115,7 @@ add_executable(lab1
     proto/output/datanode.pb.h
     proto/output/namenode.pb.cc
     proto/output/namenode.pb.h
+    rpc/rpc.cc
     rpc/connection.h
     rpc/fifo.h
     rpc/jsl_log.h

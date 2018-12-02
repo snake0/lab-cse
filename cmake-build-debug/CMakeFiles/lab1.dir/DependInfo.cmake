@@ -49,6 +49,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/nathan/lab-cse/lab1/proto/output/common.pb.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/proto/output/common.pb.cc.o"
   "/Users/nathan/lab-cse/lab1/proto/output/datanode.pb.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/proto/output/datanode.pb.cc.o"
   "/Users/nathan/lab-cse/lab1/proto/output/namenode.pb.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.o"
+  "/Users/nathan/lab-cse/lab1/rpc/rpc.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/rpc/rpc.cc.o"
   "/Users/nathan/lab-cse/lab1/yfs_client.cc" "/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles/lab1.dir/yfs_client.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

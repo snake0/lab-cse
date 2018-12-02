@@ -96,9 +96,22 @@ CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nathan/lab-cse/lab1/proto/output/namenode.pb.cc -o CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.s
 
+CMakeFiles/lab1.dir/rpc/rpc.cc.o: CMakeFiles/lab1.dir/flags.make
+CMakeFiles/lab1.dir/rpc/rpc.cc.o: ../rpc/rpc.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lab1.dir/rpc/rpc.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/rpc/rpc.cc.o -c /Users/nathan/lab-cse/lab1/rpc/rpc.cc
+
+CMakeFiles/lab1.dir/rpc/rpc.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lab1.dir/rpc/rpc.cc.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/nathan/lab-cse/lab1/rpc/rpc.cc > CMakeFiles/lab1.dir/rpc/rpc.cc.i
+
+CMakeFiles/lab1.dir/rpc/rpc.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lab1.dir/rpc/rpc.cc.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nathan/lab-cse/lab1/rpc/rpc.cc -o CMakeFiles/lab1.dir/rpc/rpc.cc.s
+
 CMakeFiles/lab1.dir/datanode.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/datanode.cc.o: ../datanode.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lab1.dir/datanode.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lab1.dir/datanode.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/datanode.cc.o -c /Users/nathan/lab-cse/lab1/datanode.cc
 
 CMakeFiles/lab1.dir/datanode.cc.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/lab1.dir/datanode.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/datanode_base.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/datanode_base.cc.o: ../datanode_base.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lab1.dir/datanode_base.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lab1.dir/datanode_base.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/datanode_base.cc.o -c /Users/nathan/lab-cse/lab1/datanode_base.cc
 
 CMakeFiles/lab1.dir/datanode_base.cc.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/lab1.dir/datanode_base.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/demo_client.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/demo_client.cc.o: ../demo_client.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lab1.dir/demo_client.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/lab1.dir/demo_client.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/demo_client.cc.o -c /Users/nathan/lab-cse/lab1/demo_client.cc
 
 CMakeFiles/lab1.dir/demo_client.cc.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/lab1.dir/demo_client.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/demo_server.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/demo_server.cc.o: ../demo_server.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/lab1.dir/demo_server.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/lab1.dir/demo_server.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/demo_server.cc.o -c /Users/nathan/lab-cse/lab1/demo_server.cc
 
 CMakeFiles/lab1.dir/demo_server.cc.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/lab1.dir/demo_server.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/extent_client.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/extent_client.cc.o: ../extent_client.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/lab1.dir/extent_client.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/lab1.dir/extent_client.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/extent_client.cc.o -c /Users/nathan/lab-cse/lab1/extent_client.cc
 
 CMakeFiles/lab1.dir/extent_client.cc.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/lab1.dir/extent_client.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/extent_server.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/extent_server.cc.o: ../extent_server.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/lab1.dir/extent_server.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/lab1.dir/extent_server.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/extent_server.cc.o -c /Users/nathan/lab-cse/lab1/extent_server.cc
 
 CMakeFiles/lab1.dir/extent_server.cc.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/lab1.dir/extent_server.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/extent_smain.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/extent_smain.cc.o: ../extent_smain.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/lab1.dir/extent_smain.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/lab1.dir/extent_smain.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/extent_smain.cc.o -c /Users/nathan/lab-cse/lab1/extent_smain.cc
 
 CMakeFiles/lab1.dir/extent_smain.cc.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/lab1.dir/extent_smain.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/fuse.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/fuse.cc.o: ../fuse.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/lab1.dir/fuse.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/lab1.dir/fuse.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/fuse.cc.o -c /Users/nathan/lab-cse/lab1/fuse.cc
 
 CMakeFiles/lab1.dir/fuse.cc.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/lab1.dir/fuse.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/gettime.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/gettime.cc.o: ../gettime.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/lab1.dir/gettime.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/lab1.dir/gettime.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/gettime.cc.o -c /Users/nathan/lab-cse/lab1/gettime.cc
 
 CMakeFiles/lab1.dir/gettime.cc.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/lab1.dir/gettime.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/handle.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/handle.cc.o: ../handle.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/lab1.dir/handle.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/lab1.dir/handle.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/handle.cc.o -c /Users/nathan/lab-cse/lab1/handle.cc
 
 CMakeFiles/lab1.dir/handle.cc.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/lab1.dir/handle.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/inode_manager.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/inode_manager.cc.o: ../inode_manager.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/lab1.dir/inode_manager.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/lab1.dir/inode_manager.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/inode_manager.cc.o -c /Users/nathan/lab-cse/lab1/inode_manager.cc
 
 CMakeFiles/lab1.dir/inode_manager.cc.i: cmake_force
@@ -241,7 +254,7 @@ CMakeFiles/lab1.dir/inode_manager.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_client.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_client.cc.o: ../lock_client.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/lab1.dir/lock_client.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/lab1.dir/lock_client.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_client.cc.o -c /Users/nathan/lab-cse/lab1/lock_client.cc
 
 CMakeFiles/lab1.dir/lock_client.cc.i: cmake_force
@@ -254,7 +267,7 @@ CMakeFiles/lab1.dir/lock_client.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_client_cache.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_client_cache.cc.o: ../lock_client_cache.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/lab1.dir/lock_client_cache.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/lab1.dir/lock_client_cache.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_client_cache.cc.o -c /Users/nathan/lab-cse/lab1/lock_client_cache.cc
 
 CMakeFiles/lab1.dir/lock_client_cache.cc.i: cmake_force
@@ -267,7 +280,7 @@ CMakeFiles/lab1.dir/lock_client_cache.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_demo.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_demo.cc.o: ../lock_demo.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/lab1.dir/lock_demo.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/lab1.dir/lock_demo.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_demo.cc.o -c /Users/nathan/lab-cse/lab1/lock_demo.cc
 
 CMakeFiles/lab1.dir/lock_demo.cc.i: cmake_force
@@ -280,7 +293,7 @@ CMakeFiles/lab1.dir/lock_demo.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_server.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_server.cc.o: ../lock_server.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/lab1.dir/lock_server.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/lab1.dir/lock_server.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_server.cc.o -c /Users/nathan/lab-cse/lab1/lock_server.cc
 
 CMakeFiles/lab1.dir/lock_server.cc.i: cmake_force
@@ -293,7 +306,7 @@ CMakeFiles/lab1.dir/lock_server.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_server_cache.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_server_cache.cc.o: ../lock_server_cache.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/lab1.dir/lock_server_cache.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/lab1.dir/lock_server_cache.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_server_cache.cc.o -c /Users/nathan/lab-cse/lab1/lock_server_cache.cc
 
 CMakeFiles/lab1.dir/lock_server_cache.cc.i: cmake_force
@@ -306,7 +319,7 @@ CMakeFiles/lab1.dir/lock_server_cache.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_smain.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_smain.cc.o: ../lock_smain.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/lab1.dir/lock_smain.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/lab1.dir/lock_smain.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_smain.cc.o -c /Users/nathan/lab-cse/lab1/lock_smain.cc
 
 CMakeFiles/lab1.dir/lock_smain.cc.i: cmake_force
@@ -319,7 +332,7 @@ CMakeFiles/lab1.dir/lock_smain.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/lock_tester.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/lock_tester.cc.o: ../lock_tester.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/lab1.dir/lock_tester.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/lab1.dir/lock_tester.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/lock_tester.cc.o -c /Users/nathan/lab-cse/lab1/lock_tester.cc
 
 CMakeFiles/lab1.dir/lock_tester.cc.i: cmake_force
@@ -332,7 +345,7 @@ CMakeFiles/lab1.dir/lock_tester.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/namenode.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/namenode.cc.o: ../namenode.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/lab1.dir/namenode.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/lab1.dir/namenode.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/namenode.cc.o -c /Users/nathan/lab-cse/lab1/namenode.cc
 
 CMakeFiles/lab1.dir/namenode.cc.i: cmake_force
@@ -345,7 +358,7 @@ CMakeFiles/lab1.dir/namenode.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/namenode_base.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/namenode_base.cc.o: ../namenode_base.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/lab1.dir/namenode_base.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/lab1.dir/namenode_base.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/namenode_base.cc.o -c /Users/nathan/lab-cse/lab1/namenode_base.cc
 
 CMakeFiles/lab1.dir/namenode_base.cc.i: cmake_force
@@ -358,7 +371,7 @@ CMakeFiles/lab1.dir/namenode_base.cc.s: cmake_force
 
 CMakeFiles/lab1.dir/test-lab-3-a.c.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/test-lab-3-a.c.o: ../test-lab-3-a.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/lab1.dir/test-lab-3-a.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/lab1.dir/test-lab-3-a.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab1.dir/test-lab-3-a.c.o   -c /Users/nathan/lab-cse/lab1/test-lab-3-a.c
 
 CMakeFiles/lab1.dir/test-lab-3-a.c.i: cmake_force
@@ -371,7 +384,7 @@ CMakeFiles/lab1.dir/test-lab-3-a.c.s: cmake_force
 
 CMakeFiles/lab1.dir/test-lab-3-b.c.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/test-lab-3-b.c.o: ../test-lab-3-b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/lab1.dir/test-lab-3-b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/lab1.dir/test-lab-3-b.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab1.dir/test-lab-3-b.c.o   -c /Users/nathan/lab-cse/lab1/test-lab-3-b.c
 
 CMakeFiles/lab1.dir/test-lab-3-b.c.i: cmake_force
@@ -384,7 +397,7 @@ CMakeFiles/lab1.dir/test-lab-3-b.c.s: cmake_force
 
 CMakeFiles/lab1.dir/test-lab2-part1-g.c.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/test-lab2-part1-g.c.o: ../test-lab2-part1-g.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/lab1.dir/test-lab2-part1-g.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/lab1.dir/test-lab2-part1-g.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab1.dir/test-lab2-part1-g.c.o   -c /Users/nathan/lab-cse/lab1/test-lab2-part1-g.c
 
 CMakeFiles/lab1.dir/test-lab2-part1-g.c.i: cmake_force
@@ -397,7 +410,7 @@ CMakeFiles/lab1.dir/test-lab2-part1-g.c.s: cmake_force
 
 CMakeFiles/lab1.dir/test-lab2-part2-a.c.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/test-lab2-part2-a.c.o: ../test-lab2-part2-a.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/lab1.dir/test-lab2-part2-a.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/lab1.dir/test-lab2-part2-a.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab1.dir/test-lab2-part2-a.c.o   -c /Users/nathan/lab-cse/lab1/test-lab2-part2-a.c
 
 CMakeFiles/lab1.dir/test-lab2-part2-a.c.i: cmake_force
@@ -410,7 +423,7 @@ CMakeFiles/lab1.dir/test-lab2-part2-a.c.s: cmake_force
 
 CMakeFiles/lab1.dir/test-lab2-part2-b.c.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/test-lab2-part2-b.c.o: ../test-lab2-part2-b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/lab1.dir/test-lab2-part2-b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/lab1.dir/test-lab2-part2-b.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab1.dir/test-lab2-part2-b.c.o   -c /Users/nathan/lab-cse/lab1/test-lab2-part2-b.c
 
 CMakeFiles/lab1.dir/test-lab2-part2-b.c.i: cmake_force
@@ -423,7 +436,7 @@ CMakeFiles/lab1.dir/test-lab2-part2-b.c.s: cmake_force
 
 CMakeFiles/lab1.dir/yfs_client.cc.o: CMakeFiles/lab1.dir/flags.make
 CMakeFiles/lab1.dir/yfs_client.cc.o: ../yfs_client.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/lab1.dir/yfs_client.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/lab1.dir/yfs_client.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lab1.dir/yfs_client.cc.o -c /Users/nathan/lab-cse/lab1/yfs_client.cc
 
 CMakeFiles/lab1.dir/yfs_client.cc.i: cmake_force
@@ -439,6 +452,7 @@ lab1_OBJECTS = \
 "CMakeFiles/lab1.dir/proto/output/common.pb.cc.o" \
 "CMakeFiles/lab1.dir/proto/output/datanode.pb.cc.o" \
 "CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.o" \
+"CMakeFiles/lab1.dir/rpc/rpc.cc.o" \
 "CMakeFiles/lab1.dir/datanode.cc.o" \
 "CMakeFiles/lab1.dir/datanode_base.cc.o" \
 "CMakeFiles/lab1.dir/demo_client.cc.o" \
@@ -472,6 +486,7 @@ lab1_EXTERNAL_OBJECTS =
 lab1: CMakeFiles/lab1.dir/proto/output/common.pb.cc.o
 lab1: CMakeFiles/lab1.dir/proto/output/datanode.pb.cc.o
 lab1: CMakeFiles/lab1.dir/proto/output/namenode.pb.cc.o
+lab1: CMakeFiles/lab1.dir/rpc/rpc.cc.o
 lab1: CMakeFiles/lab1.dir/datanode.cc.o
 lab1: CMakeFiles/lab1.dir/datanode_base.cc.o
 lab1: CMakeFiles/lab1.dir/demo_client.cc.o
@@ -500,7 +515,7 @@ lab1: CMakeFiles/lab1.dir/test-lab2-part2-b.c.o
 lab1: CMakeFiles/lab1.dir/yfs_client.cc.o
 lab1: CMakeFiles/lab1.dir/build.make
 lab1: CMakeFiles/lab1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Linking CXX executable lab1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/nathan/lab-cse/lab1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Linking CXX executable lab1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lab1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
