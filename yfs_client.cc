@@ -37,12 +37,10 @@ yfs_client::isfile(inum inum) {
 bool
 yfs_client::_isfile(inum inum) {
     extent_protocol::attr a;
-
     if (ec->getattr(inum, a) != extent_protocol::OK) {
         printf("error getting attr\n");
         return false;
     }
-
     if (a.type == extent_protocol::T_FILE) {
         printf("isfile: %lld is a file\n", inum);
         return true;
@@ -124,9 +122,7 @@ yfs_client::getdir(inum inum, dirinfo &din) {
 
 int
 yfs_client::_getdir(inum inum, dirinfo &din) {
-
     int r = OK;
-
     printf("getdir %016llx\n", inum);
     extent_protocol::attr a;
     if (ec->getattr(inum, a) != extent_protocol::OK) {
@@ -136,9 +132,7 @@ yfs_client::_getdir(inum inum, dirinfo &din) {
     din.atime = a.atime;
     din.mtime = a.mtime;
     din.ctime = a.ctime;
-
     release:
-
     return r;
 }
 
@@ -454,12 +448,10 @@ int yfs_client::_symlink(inum parent, const char *name, const char *link, inum &
     ec->put(ino_out, towrite);
 
     // modify parent info
-    std::string buf, ent = std::string(name) + '/'
-                           + filename(ino_out) + '/';
+    std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("symlink");
     buf += ent;
     if ((r = ec->put(parent, buf)) != OK) ERR("symlink");
-
     return r;
 }
 
@@ -474,9 +466,6 @@ yfs_client::readlink(inum ino, std::string &path) {
 int
 yfs_client::_readlink(inum ino, std::string &link) {
     int r;
-
-    // read link
     if ((r = ec->get(ino, link)) != OK) ERR("readlink");
-
     return r;
 }

@@ -76,15 +76,15 @@ private:
 public:
 
     yfs_client(std::string extent_dst, std::string lock_dst) {
-      ec = new extent_client(extent_dst);
-      lc = new lock_client_cache(lock_dst);
-      if (ec->put(1, "") != extent_protocol::OK)
-        printf("error init root dir\n"); // XYB: init root dir
+        ec = new extent_client(extent_dst);
+        lc = new lock_client_cache(lock_dst);
+        if (ec->put(1, "") != extent_protocol::OK)
+            printf("error init root dir\n"); // XYB: init root dir
     }
 
     ~yfs_client() {
-      delete ec;
-      delete lc;
+        delete ec;
+        delete lc;
     }
 
     bool isfile(inum);

@@ -17,102 +17,75 @@ int extent_server::create(uint32_t type, extent_protocol::extentid_t &id) {
     // alloc a new inode and return inum
     printf("extent_server: create inode\n");
     id = im->alloc_inode(type);
-
     return extent_protocol::OK;
 }
 
 int extent_server::put(extent_protocol::extentid_t id, std::string buf, int &) {
     id &= 0x7fffffff;
-
     const char *cbuf = buf.c_str();
     int size = static_cast<int>(buf.size());
     im->write_file(static_cast<uint32_t>(id), cbuf, size);
-
     return extent_protocol::OK;
 }
 
 int extent_server::get(extent_protocol::extentid_t id, std::string &buf) {
     printf("extent_server: get %lld\n", id);
-
     id &= 0x7fffffff;
-
     int size = 0;
     char *cbuf = NULL;
-
     im->read_file(static_cast<uint32_t>(id), &cbuf, &size);
-    if (size == 0)
-        buf = "";
-    else {
+    if (size != 0) {
         buf.assign(cbuf, static_cast<unsigned long>(size));
         free(cbuf);
-    }
-
+    } else buf = "";
     return extent_protocol::OK;
 }
 
 int extent_server::getattr(extent_protocol::extentid_t id, extent_protocol::attr &a) {
     printf("extent_server: getattr %lld\n", id);
-
     id &= 0x7fffffff;
-
     extent_protocol::attr attr;
     memset(&attr, 0, sizeof(attr));
     im->getattr(static_cast<uint32_t>(id), attr);
     a = attr;
-
     return extent_protocol::OK;
 }
 
 int extent_server::remove(extent_protocol::extentid_t id, int &) {
     printf("extent_server: write %lld\n", id);
-
     id &= 0x7fffffff;
     im->remove_file(static_cast<uint32_t>(id));
-
     return extent_protocol::OK;
 }
 
-int extent_server::append_block(extent_protocol::extentid_t id, blockid_t &bid)
-{
-  id &= 0x7fffffff;
-
-  im->append_block(id, bid);
-
-  return extent_protocol::OK;
+int extent_server::append_block(extent_protocol::extentid_t id, blockid_t &bid) {
+    id &= 0x7fffffff;
+    im->append_block(static_cast<uint32_t>(id), bid);
+    return extent_protocol::OK;
 }
 
-int extent_server::get_block_ids(extent_protocol::extentid_t id, std::list<blockid_t> &block_ids)
-{
-  id &= 0x7fffffff;
-
-  im->get_block_ids(id, block_ids);
-
-  return extent_protocol::OK;
+int extent_server::get_block_ids(extent_protocol::extentid_t id, std::list<blockid_t> &block_ids) {
+    id &= 0x7fffffff;
+    im->get_block_ids(static_cast<uint32_t>(id), block_ids);
+    return extent_protocol::OK;
 }
 
-int extent_server::read_block(blockid_t id, std::string &buf)
-{
-  char _buf[BLOCK_SIZE];
-
-  im->read_block(id, _buf);
-  buf.assign(_buf, BLOCK_SIZE);
-
-  return extent_protocol::OK;
+int extent_server::read_block(blockid_t id, std::string &buf) {
+    char _buf[BLOCK_SIZE];
+    im->read_block(id, _buf);
+    buf.assign(_buf, BLOCK_SIZE);
+    return extent_protocol::OK;
 }
 
-int extent_server::write_block(blockid_t id, std::string buf, int &)
-{
-  if (buf.size() != BLOCK_SIZE)
-    return extent_protocol::IOERR;
-
-  im->write_block(id, (const char *) buf.data());
-
-  return extent_protocol::OK;
+int extent_server::write_block(blockid_t id, std::string buf, int &) {
+    if (buf.size() != BLOCK_SIZE)
+        return extent_protocol::IOERR;
+    im->write_block(id, buf.data());
+    return extent_protocol::OK;
 }
 
-int extent_server::complete(extent_protocol::extentid_t eid, uint32_t size, int &)
-{
-  im->complete(eid, size);
-  return extent_protocol::OK;
+int extent_server::complete(extent_protocol::extentid_t eid, uint32_t size, int &) {
+    im->complete(static_cast<uint32_t>(eid), size);
+    return extent_protocol::OK;
 }
 
