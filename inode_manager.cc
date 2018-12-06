@@ -85,7 +85,9 @@ block_manager::block_manager() : sb() {
     sb.size = BLOCK_SIZE * BLOCK_NUM;
     sb.nblocks = BLOCK_NUM;
     sb.ninodes = INODE_NUM;
-    for (uint bnum = 0; bnum < BLOCK_NUM / BPB + INODE_NUM / IPB + 2; ++bnum)
+
+    uint init_block_num = BLOCK_NUM / BPB + INODE_NUM / IPB + 2;
+    for (uint bnum = 0; bnum < init_block_num; ++bnum)
         alloc_block();
 }
 
@@ -205,7 +207,7 @@ inode_manager::put_inode(uint inum, struct inode *inode) {
     bm->write_block(IBLOCK(inum, bm->sb.nblocks), buf);
 }
 
-#define MIN(a, b) (a < b ? a : b)
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 /* Get all the data of a file by inum.
  * Return alloced data, should be freed by caller. */
