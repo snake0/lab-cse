@@ -229,9 +229,9 @@ yfs_client::_mkdir(inum parent, const char *name, mode_t mode, inum &ino_out) {
     if (found) ERR("mkdir");
     ec->create(extent_protocol::T_DIR, ino_out);
     std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
-    if ((r = ec->get(parent, buf)) != OK) ERR("create");
+    if ((r = ec->get(parent, buf)) != OK) ERR("mkdir");
     buf += ent;
-    if ((r = ec->put(parent, buf)) != OK) ERR("create");
+    if ((r = ec->put(parent, buf)) != OK) ERR("mkdir");
     return r;
 }
 
