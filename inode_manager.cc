@@ -45,7 +45,6 @@ block_manager::alloc_block() {
     char buf[BLOCK_SIZE], mask;
     uint bnum;
 
-    // scan through blocks
     for (bnum = 0; bnum < BLOCK_NUM; bnum += BPB) {
         read_block(BBLOCK(bnum), buf);
         for (uint off = 0; off < BPB; ++off) {
@@ -83,18 +82,11 @@ block_manager::free_block(uint bnum) {
 // |<-sb->|<-free block bitmap->|<-inode table->|<-data->|
 block_manager::block_manager() : sb() {
     d = new disk();
-
-    // format the disk
     sb.size = BLOCK_SIZE * BLOCK_NUM;
     sb.nblocks = BLOCK_NUM;
     sb.ninodes = INODE_NUM;
-
-    // alloc disk
-    for (uint bnum = 0; bnum < BLOCK_NUM / BPB
-                               + INODE_NUM / IPB
-                               + 2; ++bnum)
+    for (uint bnum = 0; bnum < BLOCK_NUM / BPB + INODE_NUM / IPB + 2; ++bnum)
         alloc_block();
-
 }
 
 void

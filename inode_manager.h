@@ -7,9 +7,9 @@
 #include <ctime>
 #include "extent_protocol.h" // TODO: delete it
 
-#define DISK_SIZE  1024*1024*32
-#define BLOCK_SIZE (1024*16)
-#define BLOCK_NUM  (DISK_SIZE/BLOCK_SIZE)
+#define DISK_SIZE  1024 * 1024 * 32
+#define BLOCK_SIZE (1024 * 16)
+#define BLOCK_NUM  (DISK_SIZE / BLOCK_SIZE)
 
 // disk layer -----------------------------------------
 
@@ -60,13 +60,13 @@ public:
 //(BLOCK_SIZE / sizeof(struct inode))
 
 // Block containing inode i
-#define IBLOCK(i, nblocks)     ((nblocks)/BPB + (i)/IPB + 3)
+#define IBLOCK(i, nblocks)     ((nblocks) / BPB + (i) / IPB + 3)
 
 // Bitmap bits per block
-#define BPB      (BLOCK_SIZE*8)
+#define BPB      (BLOCK_SIZE * 8)
 
 // Block containing bit for block b
-#define BBLOCK(b) ((b)/BPB + 2)
+#define BBLOCK(b) ((b) / BPB + 2)
 
 // Blocks needed to contain b bytes
 #define BLOCKS(b) ((uint)((b + BLOCK_SIZE - 1) / BLOCK_SIZE))

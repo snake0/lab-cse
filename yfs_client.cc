@@ -255,7 +255,7 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
 
     found = false;
     if (!_isdir(parent))
-        return r;
+        return IOERR;
     std::list<dirent> ents;
     if ((r = _readdir(parent, ents)) != OK) ERR("lookup");
     std::list<dirent>::iterator iterator = ents.begin();
