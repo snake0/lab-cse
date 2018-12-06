@@ -166,8 +166,6 @@ yfs_client::_setattr(inum ino, size_t size) {
      */
     std::string buf;
     if ((r = ec->get(ino, buf)) != OK) ERR("setattr error");
-
-    // make file bigger or smaller
     buf.resize(size);
     if ((r = ec->put(ino, buf)) != OK) ERR("setattr error");
 
@@ -200,8 +198,7 @@ yfs_client::_create(inum parent, const char *name, mode_t mode, inum &ino_out) {
     ec->create(extent_protocol::T_FILE, ino_out);
 
     // modify parent info
-    std::string buf, ent = std::string(name)
-                           + '/' + filename(ino_out) + '/';
+    std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("create");
     buf += ent;
     if ((r = ec->put(parent, buf)) != OK) ERR("create");
@@ -230,17 +227,11 @@ yfs_client::_mkdir(inum parent, const char *name, mode_t mode, inum &ino_out) {
     bool found = false;
     r = _lookup(parent, name, found, ino_out);
     if (found) ERR("mkdir");
-
-    // create a dir
     ec->create(extent_protocol::T_DIR, ino_out);
-
-    // modify parent info
-    std::string buf, ent = std::string(name) + '/'
-                           + filename(ino_out) + '/';
+    std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("create");
     buf += ent;
     if ((r = ec->put(parent, buf)) != OK) ERR("create");
-
     return r;
 }
 
@@ -263,17 +254,11 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
      */
 
     found = false;
-
-    // parent must be a dir
     if (!_isdir(parent))
         return r;
-
-    // read dir entries from parent
     std::list<dirent> ents;
     if ((r = _readdir(parent, ents)) != OK) ERR("lookup");
     std::list<dirent>::iterator iterator = ents.begin();
-
-    // lookup in entries
     while (iterator != ents.end()) {
         if (iterator->name == std::string(name)) {
             found = true;
@@ -283,7 +268,6 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
         }
         ++iterator;
     }
-
     return r;
 }
 
@@ -308,8 +292,6 @@ yfs_client::_readdir(inum dir, std::list<dirent> &list) {
     if ((r = ec->get(dir, buf)) != OK) ERR("readdir");
     struct dirent ent;
     unsigned long pos;
-
-    // push_back dir entries to list
     while (!buf.empty()) {
         pos = buf.find('/');
         ent.name = buf.substr(0, pos);
@@ -319,7 +301,6 @@ yfs_client::_readdir(inum dir, std::list<dirent> &list) {
         buf = buf.substr(pos + 1);
         list.push_back(ent);
     }
-
     return r;
 }
 
@@ -342,11 +323,9 @@ yfs_client::_read(inum ino, size_t size, off_t off, std::string &data) {
      */
     std::string buf;
     if ((r = ec->get(ino, buf)) != OK) ERR("read");
-    if ((int) buf.size() <= off)
-        data.resize(0);
-    else
+    if ((int) buf.size() > off)
         data = buf.substr((uint) off, size);
-
+    else data.resize(0);
     return r;
 }
 
@@ -372,15 +351,10 @@ yfs_client::_write(inum ino, size_t size, off_t off, const char *data,
     if ((r = ec->get(ino, buf)) != OK) ERR("write");
     std::string towrite = std::string(data, size);
     bytes_written = size;
-
-    // offset larger than file
     if (off > (off_t) buf.size())
         buf.resize((unsigned long) off);
-
-    // write buffer
     buf.replace((unsigned long) off, size, towrite);
     if ((r = ec->put(ino, buf)) != OK) ERR("write");
-
     return r;
 }
 
@@ -400,8 +374,6 @@ int yfs_client::_unlink(inum parent, const char *name) {
      * note: you should remove the file using ec->remove,
      * and update the parent directory content.
      */
-
-    // lookup in parent directory
     bool found = false;
     inum toremove;
     r = _lookup(parent, name, found, toremove);
@@ -409,17 +381,11 @@ int yfs_client::_unlink(inum parent, const char *name) {
         r = NOENT;
         ERR("unlink");
     }
-    // remove from disk
     ec->remove(toremove);
-
-    // modify parent info
-    std::string buf, ent = std::string(name) + '/'
-                           + filename(toremove) + '/';
+    std::string buf, ent = std::string(name) + '/' + filename(toremove) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("unlink");
     buf.replace(buf.find(ent), ent.size(), "");
     if ((r = ec->put(parent, buf)) != OK) ERR("unlink\n");
-
-
     return r;
 }
 
@@ -440,14 +406,9 @@ int yfs_client::_symlink(inum parent, const char *name, const char *link, inum &
         r = EXIST;
         ERR("symlink");
     }
-
     std::string towrite = std::string(link);
-
-    // create a symbolic link
     ec->create(extent_protocol::T_SYMLINK, ino_out);
     ec->put(ino_out, towrite);
-
-    // modify parent info
     std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("symlink");
     buf += ent;
