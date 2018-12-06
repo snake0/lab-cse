@@ -16,18 +16,44 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
 }
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
-    return list<LocatedBlock>();
+    extent_protocol::attr attr{};
+    ec->getattr(ino, attr);
+    uint file_size = attr.size;
+
+    list<blockid_t> block_ids;
+    ec->get_block_ids(ino, block_ids);
+    auto iter = block_ids.begin();
+    list<LocatedBlock> ret;
+
+    uint offset = 0;
+    for (; iter != block_ids.end(); ++iter) {
+        assert(file_size > offset);
+        LocatedBlock block(*iter, offset, MIN(file_size - offset, BLOCK_SIZE), master_datanode);
+        ret.push_back(block);
+        offset += BLOCK_SIZE;
+    }
+    return ret;
 }
 
 bool NameNode::Complete(yfs_client::inum ino, uint32_t new_size) {
+    ec->complete(ino, new_size);
+    lc->release(ino);
     return false;
 }
 
 NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
-    throw HdfsException("Not implemented");
+    extent_protocol::attr attr{};
+    ec->getattr(ino, attr);
+    uint file_size = attr.size;
+
+    blockid_t bid;
+    ec->append_block(ino, bid);
+
+    return LocatedBlock(bid, file_size, 0, master_datanode);
 }
 
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
+    
     return false;
 }
 

@@ -36,7 +36,7 @@ yfs_client::isfile(inum inum) {
 
 bool
 yfs_client::_isfile(inum inum) {
-    extent_protocol::attr a;
+    extent_protocol::attr a{};
     if (ec->getattr(inum, a) != extent_protocol::OK) {
         printf("error getting attr\n");
         return false;
@@ -66,7 +66,7 @@ bool
 yfs_client::_isdir(inum inum) {
     // Oops! is this still correct when you implement symlink?
 
-    extent_protocol::attr a;
+    extent_protocol::attr a{};
 
     if (ec->getattr(inum, a) != extent_protocol::OK) {
         printf("error getting attr\n");
@@ -95,7 +95,7 @@ yfs_client::_getfile(inum inum, fileinfo &fin) {
     int r = OK;
 
     printf("getfile %016llx\n", inum);
-    extent_protocol::attr a;
+    extent_protocol::attr a{};
     if (ec->getattr(inum, a) != extent_protocol::OK) {
         r = IOERR;
         goto release;
@@ -124,7 +124,7 @@ int
 yfs_client::_getdir(inum inum, dirinfo &din) {
     int r = OK;
     printf("getdir %016llx\n", inum);
-    extent_protocol::attr a;
+    extent_protocol::attr a{};
     if (ec->getattr(inum, a) != extent_protocol::OK) {
         r = IOERR;
         goto release;
@@ -193,11 +193,7 @@ yfs_client::_create(inum parent, const char *name, mode_t mode, inum &ino_out) {
     bool found = false;
     r = _lookup(parent, name, found, ino_out);
     if (found) ERR("create");
-
-    // create a file
     ec->create(extent_protocol::T_FILE, ino_out);
-
-    // modify parent info
     std::string buf, ent = std::string(name) + '/' + filename(ino_out) + '/';
     if ((r = ec->get(parent, buf)) != OK) ERR("create");
     buf += ent;
@@ -245,7 +241,7 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out) {
 
 int
 yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
-    int r = OK;
+    int r;
 
     /*
      * your code goes here.
@@ -258,7 +254,7 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
         return IOERR;
     std::list<dirent> ents;
     if ((r = _readdir(parent, ents)) != OK) ERR("lookup");
-    std::list<dirent>::iterator iterator = ents.begin();
+    auto iterator = ents.begin();
     while (iterator != ents.end()) {
         if (iterator->name == std::string(name)) {
             found = true;

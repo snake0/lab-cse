@@ -152,6 +152,8 @@ inode_manager::free_inode(uint inum) {
      */
 
     inode_t *inode = get_inode(inum);
+    if (!inode)
+        return;
 
     if (!inode->type)
         return;
@@ -221,45 +223,44 @@ inode_manager::read_file(uint inum, char **buf_out, int *size) {
 
     inode_t *inode = get_inode(inum);
 
-    if (!inode)
-        return;
+    if (inode) {
+        uint fsize = inode->size, bnum, rsize = 0, toread = 0;
+        char *res = (char *) malloc(fsize), buf[BLOCK_SIZE];
 
-    uint fsize = inode->size, bnum, rsize = 0, toread = 0;
-    char *res = (char *) malloc(fsize), buf[BLOCK_SIZE];
-
-    for (bnum = 0; rsize < fsize && bnum < NDIRECT; ++bnum) {
-        toread = MIN(BLOCK_SIZE, fsize - rsize);
-        if (rsize + BLOCK_SIZE < fsize)
-            bm->read_block(inode->blocks[bnum], res + rsize);
-        else {
-            bm->read_block(inode->blocks[bnum], buf);
-            memcpy(res + rsize, buf, (uint) fsize - rsize);
-        }
-        rsize += toread;
-    }
-
-    if (rsize < fsize) {
-        uint indnum[NINDIRECT];
-        bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
-
-        for (bnum = 0; rsize < fsize && bnum < NINDIRECT; ++bnum) {
+        for (bnum = 0; rsize < fsize && bnum < NDIRECT; ++bnum) {
             toread = MIN(BLOCK_SIZE, fsize - rsize);
             if (rsize + BLOCK_SIZE < fsize)
-                bm->read_block(indnum[bnum], res + rsize);
+                bm->read_block(inode->blocks[bnum], res + rsize);
             else {
-                bm->read_block(indnum[bnum], buf);
+                bm->read_block(inode->blocks[bnum], buf);
                 memcpy(res + rsize, buf, (uint) fsize - rsize);
             }
             rsize += toread;
         }
+
+        if (rsize < fsize) {
+            blockid_t indnum[NINDIRECT];
+            bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
+
+            for (bnum = 0; rsize < fsize && bnum < NINDIRECT; ++bnum) {
+                toread = MIN(BLOCK_SIZE, fsize - rsize);
+                if (rsize + BLOCK_SIZE < fsize)
+                    bm->read_block(indnum[bnum], res + rsize);
+                else {
+                    bm->read_block(indnum[bnum], buf);
+                    memcpy(res + rsize, buf, (uint) fsize - rsize);
+                }
+                rsize += toread;
+            }
+        }
+        *size = (int) fsize;
+        *buf_out = res;
+        uint now = (uint) std::time(0);
+        inode->atime = now;
+        inode->ctime = now;
+        put_inode(inum, inode);
+        free(inode);
     }
-    *size = (int) fsize;
-    *buf_out = res;
-    uint now = (uint) std::time(0);
-    inode->atime = now;
-    inode->ctime = now;
-    put_inode(inum, inode);
-    free(inode);
 }
 
 /* alloc/free blocks if needed */
@@ -275,65 +276,68 @@ inode_manager::write_file(uint inum, const char *buf, int size) {
 
     char block[BLOCK_SIZE], indnum[BLOCK_SIZE];
     inode_t *inode = get_inode(inum);
-    uint osize = BLOCKS(inode->size), nsize = BLOCKS(size);
 
-    // free all blocks
-    for (uint bnum = 0; bnum < MIN(osize, NDIRECT); ++bnum)
-        bm->free_block(inode->blocks[bnum]);
-    if (osize > NDIRECT) {
-        uint ind = osize - NDIRECT;
-        bm->read_block(inode->blocks[NDIRECT], indnum);
-        for (uint bnum = 0; bnum < ind; ++bnum)
-            bm->free_block(*((uint *) indnum + bnum));
-        bm->free_block(inode->blocks[NDIRECT]);
-    }
+    if (inode) {
+        uint osize = BLOCKS(inode->size), nsize = BLOCKS(size);
 
-    // alloc new blocks
-    for (uint bnum = 0; bnum < MIN(nsize, NDIRECT); ++bnum)
-        inode->blocks[bnum] = bm->alloc_block();
-    if (nsize > NDIRECT) {
-        inode->blocks[NDIRECT] = bm->alloc_block();
-        bzero(indnum, BLOCK_SIZE);
-        uint ind = nsize - NDIRECT;
-        for (uint bnum = 0; bnum < ind; ++bnum)
-            *((uint *) indnum + bnum) = bm->alloc_block();
-        bm->write_block(inode->blocks[NDIRECT], indnum);
-    }
-
-    // write blocks
-    int rsize = 0, towrite;
-    uint bnum;
-    for (bnum = 0; rsize < size && bnum < NDIRECT; ++bnum) {
-        towrite = MIN(BLOCK_SIZE, size - rsize);
-        if (size - rsize > BLOCK_SIZE)
-            bm->write_block(inode->blocks[bnum], buf + rsize);
-        else {
-            memcpy(block, buf + rsize, (uint) size - rsize);
-            bm->write_block(inode->blocks[bnum], block);
+        // free all blocks
+        for (uint bnum = 0; bnum < MIN(osize, NDIRECT); ++bnum)
+            bm->free_block(inode->blocks[bnum]);
+        if (osize > NDIRECT) {
+            uint ind = osize - NDIRECT;
+            bm->read_block(inode->blocks[NDIRECT], indnum);
+            for (uint bnum = 0; bnum < ind; ++bnum)
+                bm->free_block(*((uint *) indnum + bnum));
+            bm->free_block(inode->blocks[NDIRECT]);
         }
-        rsize += towrite;
-    }
 
-    if (rsize < size) {
-        bm->read_block(inode->blocks[NDIRECT], indnum);
-        for (bnum = 0; rsize < size && bnum < NINDIRECT; ++bnum) {
-            uint ind = *((uint *) indnum + bnum);
+        // alloc new blocks
+        for (uint bnum = 0; bnum < MIN(nsize, NDIRECT); ++bnum)
+            inode->blocks[bnum] = bm->alloc_block();
+        if (nsize > NDIRECT) {
+            inode->blocks[NDIRECT] = bm->alloc_block();
+            bzero(indnum, BLOCK_SIZE);
+            uint ind = nsize - NDIRECT;
+            for (uint bnum = 0; bnum < ind; ++bnum)
+                *((uint *) indnum + bnum) = bm->alloc_block();
+            bm->write_block(inode->blocks[NDIRECT], indnum);
+        }
+
+        // write blocks
+        int rsize = 0, towrite;
+        uint bnum;
+        for (bnum = 0; rsize < size && bnum < NDIRECT; ++bnum) {
             towrite = MIN(BLOCK_SIZE, size - rsize);
             if (size - rsize > BLOCK_SIZE)
-                bm->write_block(ind, buf + rsize);
+                bm->write_block(inode->blocks[bnum], buf + rsize);
             else {
                 memcpy(block, buf + rsize, (uint) size - rsize);
-                bm->write_block(ind, block);
+                bm->write_block(inode->blocks[bnum], block);
             }
             rsize += towrite;
         }
+
+        if (rsize < size) {
+            bm->read_block(inode->blocks[NDIRECT], indnum);
+            for (bnum = 0; rsize < size && bnum < NINDIRECT; ++bnum) {
+                uint ind = *((uint *) indnum + bnum);
+                towrite = MIN(BLOCK_SIZE, size - rsize);
+                if (size - rsize > BLOCK_SIZE)
+                    bm->write_block(ind, buf + rsize);
+                else {
+                    memcpy(block, buf + rsize, (uint) size - rsize);
+                    bm->write_block(ind, block);
+                }
+                rsize += towrite;
+            }
+        }
+        time_t now = std::time(0);
+        inode->size = (uint) size;
+        inode->mtime = (uint) now;
+        inode->ctime = (uint) now;
+        put_inode(inum, inode);
+        free(inode);
     }
-    time_t now = std::time(0);
-    inode->size = (uint) size;
-    inode->mtime = (uint) now;
-    inode->ctime = (uint) now;
-    put_inode(inum, inode);
-    free(inode);
 }
 
 void
@@ -365,22 +369,22 @@ inode_manager::remove_file(uint inum) {
 
     inode_t *inode = get_inode(inum);
 
-    if (!inode)
-        return;
-    uint bnum = BLOCKS(inode->size);
-    if (bnum > NDIRECT) {
-        uint indnum[NINDIRECT];
-        bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
-        for (uint i = 0; i < bnum - NDIRECT; ++i)
-            bm->free_block(indnum[i]);
-        bm->free_block(inode->blocks[NDIRECT]);
+    if (inode) {
+        blockid_t bnum = BLOCKS(inode->size);
+        if (bnum > NDIRECT) {
+            blockid_t indnum[NINDIRECT];
+            bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
+            for (uint i = 0; i < bnum - NDIRECT; ++i)
+                bm->free_block(indnum[i]);
+            bm->free_block(inode->blocks[NDIRECT]);
+        }
+
+        for (uint i = 0; i < MIN(bnum, NDIRECT); ++i)
+            bm->free_block(inode->blocks[i]);
+
+        free_inode(inum);
+        free(inode);
     }
-
-    for (uint i = 0; i < MIN(bnum, NDIRECT); ++i)
-        bm->free_block(inode->blocks[i]);
-
-    free_inode(inum);
-    free(inode);
 }
 
 void
@@ -388,7 +392,31 @@ inode_manager::append_block(uint32_t inum, blockid_t &bid) {
     /*
      * your code goes here.
      */
+    inode_t *inode = get_inode(inum);
 
+    if (inode) {
+        uint size = BLOCKS(inode->size);
+        blockid_t newBlockId = bm->alloc_block();
+        bid = newBlockId;
+
+        if (size < NDIRECT)
+            inode->blocks[size] = newBlockId;
+        else {
+            size -= NDIRECT;
+            assert(size >= 0 && size < NINDIRECT);
+            if (size == 0)
+                inode->blocks[NDIRECT] = bm->alloc_block();
+
+            blockid_t indnum[NINDIRECT];
+            bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
+            indnum[size] = newBlockId;
+            bm->write_block(inode->blocks[NDIRECT], (char *) indnum);
+        }
+        put_inode(inum, inode);
+        free(inode);
+        return;
+    }
+    bid = 0;
 }
 
 void
@@ -396,7 +424,31 @@ inode_manager::get_block_ids(uint32_t inum, std::list<blockid_t> &block_ids) {
     /*
      * your code goes here.
      */
+    inode_t *inode = get_inode(inum);
 
+    if (inode) {
+
+        block_ids.clear();
+        uint fsize = inode->size, bnum, rsize = 0, toread = 0;
+
+        for (bnum = 0; rsize < fsize && bnum < NDIRECT; ++bnum) {
+            toread = MIN(BLOCK_SIZE, fsize - rsize);
+            rsize += toread;
+            block_ids.push_back(inode->blocks[bnum]);
+        }
+
+        if (rsize < fsize) {
+            blockid_t indnum[NINDIRECT];
+            bm->read_block(inode->blocks[NDIRECT], (char *) indnum);
+            for (bnum = 0; rsize < fsize && bnum < NINDIRECT; ++bnum) {
+                toread = MIN(BLOCK_SIZE, fsize - rsize);
+                rsize += toread;
+                block_ids.push_back(indnum[bnum]);
+            }
+        }
+
+        free(inode);
+    }
 }
 
 void
@@ -404,7 +456,7 @@ inode_manager::read_block(blockid_t id, char buf[BLOCK_SIZE]) {
     /*
      * your code goes here.
      */
-
+    bm->read_block(id, buf);
 }
 
 void
@@ -412,7 +464,7 @@ inode_manager::write_block(blockid_t id, const char buf[BLOCK_SIZE]) {
     /*
      * your code goes here.
      */
-
+    bm->write_block(id, buf);
 }
 
 void
@@ -420,5 +472,13 @@ inode_manager::complete(uint32_t inum, uint32_t size) {
     /*
      * your code goes here.
      */
-
+    uint now = (uint) std::time(0);
+    inode_t *inode = get_inode(inum);
+    if (inode) {
+        inode->atime = now;
+        inode->ctime = now;
+        inode->size = size;
+        put_inode(inum, inode);
+        free(inode);
+    }
 }

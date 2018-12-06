@@ -35,7 +35,7 @@ struct mutex_t {
     pthread_mutex_t mutex;
 
     mutex_t() : mutex() {
-        VERIFY(pthread_mutex_init(&mutex, NULL) == 0);
+        VERIFY(pthread_mutex_init(&mutex, nullptr) == 0);
     }
 
     void lock() {
@@ -51,7 +51,7 @@ struct cond_t {
     pthread_cond_t cond;
 
     cond_t() : cond() {
-        VERIFY(pthread_cond_init(&cond, NULL) == 0);
+        VERIFY(pthread_cond_init(&cond, nullptr) == 0);
     }
 
     void wait(mutex_t &lock) {
