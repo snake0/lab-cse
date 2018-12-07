@@ -258,7 +258,6 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
     while (iterator != ents.end()) {
         if (iterator->name == std::string(name)) {
             found = true;
-            r = EXIST;
             ino_out = iterator->inum;
             return r;
         }
