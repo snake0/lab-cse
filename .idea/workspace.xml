@@ -12,9 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64c70933-683c-41aa-9086-810be6637922" name="Default Changelist" comment="refactor lab1">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/namenode.cc" beforeDir="false" afterPath="$PROJECT_DIR$/namenode.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/z.sh" beforeDir="false" afterPath="$PROJECT_DIR$/z.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/namenode.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="360">
+              <caret line="72" column="26" lean-forward="true" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -289,7 +287,7 @@
       <workItem from="1544183572969" duration="4645000" />
       <workItem from="1544246094808" duration="47000" />
       <workItem from="1544246187593" duration="1923000" />
-      <workItem from="1544249672944" duration="12094000" />
+      <workItem from="1544249672944" duration="12368000" />
     </task>
     <task id="LOCAL-00001" summary="refactor lab1">
       <created>1544082699483</created>
@@ -302,7 +300,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77329000" />
+    <option name="totallyTimeSpent" value="77603000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -751,8 +749,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/namenode.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="360">
+          <caret line="72" column="26" lean-forward="true" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

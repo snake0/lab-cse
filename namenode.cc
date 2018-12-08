@@ -60,16 +60,14 @@ NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
 }
 
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
-    string src_buf, dst_buf;
-
     src_name += "/";
     dst_name += "/";
 
+    string src_buf, dst_buf;
     CHECK(ec->get(src_dir_ino, src_buf), "ec: get src dir", false);
     CHECK(ec->get(dst_dir_ino, dst_buf), "ec: get dst dir", false);
 
     unsigned long start = src_buf.find(src_name);
-    
     if (src_dir_ino == dst_dir_ino) {
         dst_buf.replace(start, src_name.length(), dst_name);
         src_buf = dst_buf;
