@@ -51,6 +51,7 @@ private:
   yfs_client *yfs;
   DatanodeIDProto master_datanode;
   std::map<yfs_client::inum, uint32_t> pendingWrite;
+  std::list<DatanodeIDProto> datanodes_id;
 
   /* Add your member variables/functions here */
 private:
