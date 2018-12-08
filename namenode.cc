@@ -61,22 +61,25 @@ NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
 
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
     string src_buf, dst_buf;
+
+    src_name += "/";
+    dst_name += "/";
+
     CHECK(ec->get(src_dir_ino, src_buf), "ec: get src dir", false);
     CHECK(ec->get(dst_dir_ino, dst_buf), "ec: get dst dir", false);
 
-    /* remove dir entry */
     unsigned long start = src_buf.find(src_name);
-    string temp = src_buf.substr(start);
-    unsigned long end = temp.find('/') + start;
-    temp = temp.substr(temp.find('/') + 1);
-    end += temp.find('/') + 2;
-    string dir_ent = src_buf.substr(start, end - start);
-    src_buf.replace(start, end - start, "");
-    CHECK(ec->put(src_dir_ino, src_buf), "ec: put src dir", false);
+    
+    if (src_dir_ino == dst_dir_ino) {
+        dst_buf.replace(start, src_name.length(), dst_name);
+        src_buf = dst_buf;
+    } else {
+        unsigned long end = src_buf.substr(start + src_name.length()).find('/');
+        dst_buf += src_buf.substr(start, end - start).replace(0, src_name.length(), dst_name);
+        src_buf.replace(start, end - start, "");
+    }
 
-    /* add dir entry */
-    dir_ent.replace(0, dir_ent.find('/'), dst_name);
-    dst_buf += dir_ent;
+    CHECK(ec->put(src_dir_ino, src_buf), "ec: put src dir", false);
     CHECK(ec->put(dst_dir_ino, dst_buf), "ec: put dst dir", false);
 
     return true;
@@ -117,7 +120,7 @@ bool NameNode::Readdir(yfs_client::inum ino, std::list<yfs_client::dirent> &dir)
 }
 
 bool NameNode::Unlink(yfs_client::inum parent, string name, yfs_client::inum ino) {
-    CHECK(yfs->_unlink(parent, name.c_str()), "yfs: _readdir", false);
+    CHECK(yfs->_unlink(parent, name.c_str()), "yfs: _unlink", false);
     return true;
 }
 
