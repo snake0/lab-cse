@@ -13,6 +13,14 @@ class extent_client;
 class lock_client;
 class yfs_client;
 
+#define CHECK(action, name, ret) {\
+    if((action) != extent_protocol::OK){\
+        fprintf(stderr,"%s error\n",(name));\
+        fflush(stderr);\
+        return (ret);\
+    }\
+}
+
 class HdfsException : public std::runtime_error {
 public:
   HdfsException() : runtime_error("") {}

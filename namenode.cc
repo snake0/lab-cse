@@ -11,23 +11,21 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
     ec = new extent_client(extent_dst);
     lc = new lock_client_cache(lock_dst);
     yfs = new yfs_client(extent_dst, lock_dst);
-    fprintf(stderr, "----init\n");
-    fflush(stderr);
 
     /* Add your init logic here */
     datanodes_id.clear();
 }
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
-    fprintf(stderr,"-----  GetBlockLocations\n");fflush(stderr);
+    fprintf(stderr, "-----  GetBlockLocations\n");
+    fflush(stderr);
+    list<LocatedBlock> ret;
     extent_protocol::attr attr{};
-    ec->getattr(ino, attr);
+    CHECK(ec->getattr(ino, attr), "ec: getattr in GetBlockLocations", ret);
     uint file_size = attr.size;
     list<blockid_t> block_ids;
-    ec->get_block_ids(ino, block_ids);
+    CHECK(ec->get_block_ids(ino, block_ids), "ec: get_blocks_ids", ret);
     auto iter = block_ids.begin();
-    list<LocatedBlock> ret;
-
     uint offset = 0;
     for (; iter != block_ids.end(); ++iter) {
         assert(file_size > offset);
@@ -39,30 +37,30 @@ list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
 }
 
 bool NameNode::Complete(yfs_client::inum ino, uint32_t new_size) {
-    fprintf(stderr,"-----  Complete\n");fflush(stderr);
-
-    ec->complete(ino, new_size);
+    bool ret = true;
+    if (ec->complete(ino, new_size)) {
+        fprintf(stderr, "ec: complete error\n");
+        fflush(stderr);
+        ret = false;
+    }
     lc->release(ino);
-    return false;
+    return ret;
 }
 
 NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
-    fprintf(stderr,"-----  AppendBlock\n");fflush(stderr);
-
     extent_protocol::attr attr{};
-    ec->getattr(ino, attr);
+    CHECK(ec->getattr(ino, attr), "ec: getattr in AppendBlock", LocatedBlock(0, 0, 0, master_datanode));
     uint file_size = attr.size;
+
     blockid_t bid;
-    ec->append_block(ino, bid);
+    CHECK(ec->append_block(ino, bid), "ec: append_block", LocatedBlock(0, 0, 0, master_datanode));
     return LocatedBlock(bid, file_size, 0, master_datanode);
 }
 
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
-    fprintf(stderr,"-----  Rename\n");fflush(stderr);
-
     string src_buf, dst_buf;
-    ec->get(src_dir_ino, src_buf);
-    ec->get(dst_dir_ino, dst_buf);
+    CHECK(ec->get(src_dir_ino, src_buf), "ec: get src dir", false);
+    CHECK(ec->get(dst_dir_ino, dst_buf), "ec: get dst dir", false);
 
     /* remove dir entry */
     unsigned long start = src_buf.find(src_name);
@@ -72,68 +70,57 @@ bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client:
     end += temp.find('/') + 2;
     string dir_ent = src_buf.substr(start, end - start);
     src_buf.replace(start, end - start, "");
-    ec->put(src_dir_ino, src_buf);
+    CHECK(ec->put(src_dir_ino, src_buf), "ec: put src dir", false);
 
     /* add dir entry */
     dir_ent.replace(0, dir_ent.find('/'), dst_name);
     dst_buf += dir_ent;
-    ec->put(dst_dir_ino, dst_buf);
-    return false;
+    CHECK(ec->put(dst_dir_ino, dst_buf), "ec: put dst dir", false);
+
+    return true;
 }
 
 bool NameNode::Mkdir(yfs_client::inum parent, string name, mode_t mode, yfs_client::inum &ino_out) {
-    fprintf(stderr,"-----  Mkdir\n");fflush(stderr);
-
-    yfs->_mkdir(parent, name.c_str(), mode, ino_out);
-    return false;
+    fprintf(stderr, "-----  Mkdir\n");
+    fflush(stderr);
+    CHECK(yfs->_mkdir(parent, name.c_str(), mode, ino_out), "yfs: _mkdir", false);
+    return true;
 }
 
 bool NameNode::Create(yfs_client::inum parent, string name, mode_t mode, yfs_client::inum &ino_out) {
-    fprintf(stderr,"-----  Create\n");fflush(stderr);
-
-    yfs->create(parent, name.c_str(), mode, ino_out);
+    fprintf(stderr, "-----  Create\n");
+    fflush(stderr);
+    CHECK(yfs->_create(parent, name.c_str(), mode, ino_out), "yfs: _create", false);
     lc->acquire(ino_out);
-    return false;
+    return true;
 }
 
 bool NameNode::Isfile(yfs_client::inum ino) {
-    fprintf(stderr,"-----  Isfile\n");fflush(stderr);
-
     return yfs->_isfile(ino);
 }
 
 bool NameNode::Isdir(yfs_client::inum ino) {
-    fprintf(stderr,"-----  Isdir\n");fflush(stderr);
-
     return yfs->_isdir(ino);
 }
 
 bool NameNode::Getfile(yfs_client::inum ino, yfs_client::fileinfo &info) {
-    fprintf(stderr,"-----  Getfile\n");fflush(stderr);
-
-    yfs->_getfile(ino, info);
-    return false;
+    CHECK(yfs->_getfile(ino, info), "yfs: _getfile", false);
+    return true;
 }
 
 bool NameNode::Getdir(yfs_client::inum ino, yfs_client::dirinfo &info) {
-    fprintf(stderr,"-----  Getdir\n");fflush(stderr);
-
-    yfs->_getdir(ino, info);
-    return false;
+    CHECK(yfs->_getdir(ino, info), "yfs: _getdir", false);
+    return true;
 }
 
 bool NameNode::Readdir(yfs_client::inum ino, std::list<yfs_client::dirent> &dir) {
-    fprintf(stderr,"-----  Readdir\n");fflush(stderr);
-
-    yfs->_readdir(ino, dir);
-    return false;
+    CHECK(yfs->_readdir(ino, dir), "yfs: _readdir", false);
+    return true;
 }
 
 bool NameNode::Unlink(yfs_client::inum parent, string name, yfs_client::inum ino) {
-    fprintf(stderr,"-----  Unlink\n");fflush(stderr);
-
-    yfs->_unlink(parent, name.c_str());
-    return false;
+    CHECK(yfs->_unlink(parent, name.c_str()), "yfs: _readdir", false);
+    return true;
 }
 
 void NameNode::DatanodeHeartbeat(DatanodeIDProto id) {

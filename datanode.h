@@ -9,6 +9,14 @@
 #include "extent_protocol.h"
 #include <memory>
 
+#define CHECK(action, name, ret) {\
+    if((action) != extent_protocol::OK){\
+        fprintf(stderr,"%s error\n",(name));\
+        fflush(stderr);\
+        return (ret);\
+    }\
+}
+
 class extent_client;
 
 class DataNode {

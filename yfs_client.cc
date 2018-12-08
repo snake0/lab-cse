@@ -256,14 +256,15 @@ yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out) {
     if ((r = _readdir(parent, ents)) != OK) ERR("lookup");
     auto iterator = ents.begin();
     while (iterator != ents.end()) {
-        if (iterator->name == std::string(name)) {
+        if (std::string(name) != iterator->name)
+            ++iterator;
+        else {
             found = true;
             ino_out = iterator->inum;
-            return r;
+            return OK;
         }
-        ++iterator;
     }
-    return r;
+    return NOENT;
 }
 
 int
