@@ -18,23 +18,20 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
     list<LocatedBlock> ret;
-
     extent_protocol::attr attr{};
     CHECK(ec->getattr(ino, attr), "ec: getattr in GetBlockLocations", ret);
     uint file_size = attr.size;
 
     list<blockid_t> block_ids;
     CHECK(ec->get_block_ids(ino, block_ids), "ec: get_blocks_ids", ret);
-
     auto iter = block_ids.begin();
     uint offset = 0;
     for (; iter != block_ids.end(); ++iter) {
         assert(file_size > offset);
-        LocatedBlock block(*iter, offset, MIN(file_size - offset, BLOCK_SIZE), master_datanode);
+        LocatedBlock block(*iter, offset, MIN(file_size - offset, BLOCK_SIZE), live_datanodes_id);
         ret.push_back(block);
         offset += BLOCK_SIZE;
     }
-
     return ret;
 }
 
@@ -62,11 +59,9 @@ NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
     src_name += "/";
     dst_name += "/";
-
     string src_buf, dst_buf;
     CHECK(ec->get(src_dir_ino, src_buf), "ec: get src dir", false);
     CHECK(ec->get(dst_dir_ino, dst_buf), "ec: get dst dir", false);
-
     unsigned long start = src_buf.find(src_name);
     if (src_dir_ino == dst_dir_ino) {
         dst_buf.replace(start, src_name.length(), dst_name);
@@ -76,10 +71,8 @@ bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client:
         dst_buf += src_buf.substr(start, end - start).replace(0, src_name.length(), dst_name);
         src_buf.replace(start, end - start, "");
     }
-
     CHECK(ec->put(src_dir_ino, src_buf), "ec: put src dir", false);
     CHECK(ec->put(dst_dir_ino, dst_buf), "ec: put dst dir", false);
-
     return true;
 }
 
