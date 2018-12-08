@@ -67,7 +67,7 @@ public:
     int _mkdir(inum, const char *, mode_t, inum &);
     int _symlink(inum, const char *, const char *, inum &);
     int _readlink(inum, std::string &);
-    
+
     bool isfile(inum);
     bool isdir(inum);
     int getfile(inum, fileinfo &);
