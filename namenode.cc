@@ -17,14 +17,15 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
 }
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
-    fprintf(stderr, "-----  GetBlockLocations\n");
-    fflush(stderr);
     list<LocatedBlock> ret;
+
     extent_protocol::attr attr{};
     CHECK(ec->getattr(ino, attr), "ec: getattr in GetBlockLocations", ret);
     uint file_size = attr.size;
+
     list<blockid_t> block_ids;
     CHECK(ec->get_block_ids(ino, block_ids), "ec: get_blocks_ids", ret);
+
     auto iter = block_ids.begin();
     uint offset = 0;
     for (; iter != block_ids.end(); ++iter) {
@@ -33,6 +34,7 @@ list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
         ret.push_back(block);
         offset += BLOCK_SIZE;
     }
+
     return ret;
 }
 
@@ -81,15 +83,11 @@ bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client:
 }
 
 bool NameNode::Mkdir(yfs_client::inum parent, string name, mode_t mode, yfs_client::inum &ino_out) {
-    fprintf(stderr, "-----  Mkdir\n");
-    fflush(stderr);
     CHECK(yfs->_mkdir(parent, name.c_str(), mode, ino_out), "yfs: _mkdir", false);
     return true;
 }
 
 bool NameNode::Create(yfs_client::inum parent, string name, mode_t mode, yfs_client::inum &ino_out) {
-    fprintf(stderr, "-----  Create\n");
-    fflush(stderr);
     CHECK(yfs->_create(parent, name.c_str(), mode, ino_out), "yfs: _create", false);
     lc->acquire(ino_out);
     return true;

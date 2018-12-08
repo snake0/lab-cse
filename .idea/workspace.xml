@@ -129,9 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>test_touch</find>
-      <find>worker</find>
-      <find>HrpcRead</find>
       <find>---name ::</find>
       <find>-------</find>
       <find>fprintf</find>
@@ -159,6 +156,9 @@
       <find>PBGetFileInfoFromInum</find>
       <find>lc</find>
       <find>if</find>
+      <find>error</find>
+      <find>fpr</find>
+      <find>test4</find>
     </findStrings>
     <replaceStrings>
       <replace>src_buf</replace>
