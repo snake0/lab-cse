@@ -13,7 +13,7 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
     yfs = new yfs_client(extent_dst, lock_dst);
 
     /* Add your init logic here */
-    datanodes_id.clear();
+    live_datanodes_id.clear();
 }
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
@@ -126,9 +126,17 @@ void NameNode::DatanodeHeartbeat(DatanodeIDProto id) {
 }
 
 void NameNode::RegisterDatanode(DatanodeIDProto id) {
-    datanodes_id.push_back(id);
+    live_datanodes_id.push_back(id);
 }
 
 list<DatanodeIDProto> NameNode::GetDatanodes() {
-    return datanodes_id;
+    return live_datanodes_id;
+}
+
+bool NameNode::Readlink(yfs_client::inum ino, std::string &dest) {
+    return false;
+}
+
+void NameNode::GetFileInfo() {
+
 }

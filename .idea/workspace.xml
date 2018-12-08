@@ -13,6 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="64c70933-683c-41aa-9086-810be6637922" name="Default Changelist" comment="refactor lab1">
       <change beforePath="$PROJECT_DIR$/namenode.cc" beforeDir="false" afterPath="$PROJECT_DIR$/namenode.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namenode.h" beforeDir="false" afterPath="$PROJECT_DIR$/namenode.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/namenode.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="72" column="26" lean-forward="true" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
+            <state relative-caret-position="302">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -57,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/namenode.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7">
-              <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+            <state relative-caret-position="-536">
+              <caret line="41" column="14" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
               <folding>
                 <element signature="e#41#65#0" expanded="true" />
               </folding>
@@ -158,8 +159,8 @@
       <find>filesize</find>
       <find>RecursiveLookupParent</find>
       <find>LocatedBlock</find>
-      <find>fprintf</find>
       <find>test_put</find>
+      <find>fprintf</find>
     </findStrings>
     <replaceStrings>
       <replace>src_buf</replace>
@@ -199,10 +200,10 @@
         <option value="$PROJECT_DIR$/yfs_client.cc" />
         <option value="$PROJECT_DIR$/namenode_base.cc" />
         <option value="$PROJECT_DIR$/datanode.h" />
-        <option value="$PROJECT_DIR$/namenode.h" />
         <option value="$PROJECT_DIR$/datanode.cc" />
         <option value="$PROJECT_DIR$/inode_manager.cc" />
         <option value="$PROJECT_DIR$/namenode.cc" />
+        <option value="$PROJECT_DIR$/namenode.h" />
       </list>
     </option>
   </component>
@@ -287,7 +288,7 @@
       <workItem from="1544183572969" duration="4645000" />
       <workItem from="1544246094808" duration="47000" />
       <workItem from="1544246187593" duration="1923000" />
-      <workItem from="1544249672944" duration="12368000" />
+      <workItem from="1544249672944" duration="13605000" />
     </task>
     <task id="LOCAL-00001" summary="refactor lab1">
       <created>1544082699483</created>
@@ -300,7 +301,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77603000" />
+    <option name="totallyTimeSpent" value="78840000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -315,7 +316,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.21101573" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.14020029" />
       <window_info id="Structure" order="1" sideWeight="0.50120485" side_tool="true" weight="0.18884121" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -661,16 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/namenode.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
-          <folding>
-            <element signature="e#41#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extent_client.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -747,10 +738,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/namenode.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-536">
+          <caret line="41" column="14" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+          <folding>
+            <element signature="e#41#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/namenode.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="72" column="26" lean-forward="true" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
+        <state relative-caret-position="302">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
