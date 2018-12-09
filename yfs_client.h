@@ -1,14 +1,11 @@
 #ifndef yfs_client_h
 #define yfs_client_h
 
+#include <utility>
 #include <string>
-
 #include "lock_client_cache.h"
 #include "extent_client.h"
 #include <vector>
-
-#define ERR(msg) {printf("%s error\n",msg);return r;}
-
 
 class yfs_client {
     extent_client *ec;
@@ -40,8 +37,8 @@ public:
     };
 
     yfs_client(std::string extent_dst, std::string lock_dst) {
-        ec = new extent_client(extent_dst);
-        lc = new lock_client_cache(lock_dst);
+        ec = new extent_client(std::move(extent_dst));
+        lc = new lock_client_cache(std::move(lock_dst));
         if (ec->put(1, "") != extent_protocol::OK)
             printf("error init root dir\n"); // XYB: init root dir
     }

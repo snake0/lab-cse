@@ -9,14 +9,6 @@
 #include "extent_protocol.h"
 #include <memory>
 
-#define CHECK(action, name, ret) {\
-    if((action) != extent_protocol::OK){\
-        fprintf(stderr,"%s error\n",(name));\
-        fflush(stderr);\
-        return (ret);\
-    }\
-}
-
 class extent_client;
 
 class DataNode {
@@ -32,6 +24,7 @@ private:
   bool ReadBlock(blockid_t bid, uint64_t offset, uint64_t len, std::string &buf);
   bool WriteBlock(blockid_t bid, uint64_t offset, uint64_t len, const std::string &buf);
   bool SendHeartbeat();
+  void ReportAlive();
 
   /* Feel free to add your member variables/functions here */
 public:

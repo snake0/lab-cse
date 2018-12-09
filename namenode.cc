@@ -13,7 +13,10 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
     yfs = new yfs_client(extent_dst, lock_dst);
 
     /* Add your init logic here */
+    reg_datanodes_id.clear();
     live_datanodes_id.clear();
+    datanode_heartbeat_count.clear();
+    NewThread(this, &NameNode::CheckAlive);
 }
 
 list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
@@ -116,10 +119,13 @@ bool NameNode::Unlink(yfs_client::inum parent, string name, yfs_client::inum ino
 }
 
 void NameNode::DatanodeHeartbeat(DatanodeIDProto id) {
+    datanode_heartbeat_count[id] = 0;
 }
 
 void NameNode::RegisterDatanode(DatanodeIDProto id) {
+    reg_datanodes_id.push_back(id);
     live_datanodes_id.push_back(id);
+    datanode_heartbeat_count[id] = 0;
 }
 
 list<DatanodeIDProto> NameNode::GetDatanodes() {
@@ -132,4 +138,16 @@ bool NameNode::Readlink(yfs_client::inum ino, std::string &dest) {
 
 void NameNode::GetFileInfo() {
 
+}
+
+void NameNode::CheckAlive() {
+    for (;;) {
+        auto iter = datanode_heartbeat_count.begin();
+        for (; iter != datanode_heartbeat_count.end(); ++iter) {
+            iter->second += 1;
+            if (iter->second > 5)
+                live_datanodes_id.remove(iter->first);
+        }
+        sleep(1);
+    }
 }

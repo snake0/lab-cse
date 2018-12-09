@@ -15,14 +15,6 @@ class extent_client;
 class lock_client;
 class yfs_client;
 
-#define CHECK(action, name, ret) {\
-    if((action) != extent_protocol::OK){\
-        fprintf(stderr,"%s error\n",(name));\
-        fflush(stderr);\
-        return (ret);\
-    }\
-}
-
 class HdfsException : public std::runtime_error {
 public:
     HdfsException() : runtime_error("") {}
@@ -48,9 +40,13 @@ private:
     yfs_client *yfs;
     DatanodeIDProto master_datanode;
     std::map<yfs_client::inum, uint32_t> pendingWrite;
-    std::list<DatanodeIDProto> live_datanodes_id;
 
     /* Add your member variables/functions here */
+    std::list<DatanodeIDProto> reg_datanodes_id;
+    std::list<DatanodeIDProto> live_datanodes_id;
+    std::map<DatanodeIDProto, uint> datanode_heartbeat_count;
+
+    void CheckAlive();
 private:
     void GetFileInfo();
     bool RecursiveLookup(const std::string &path, yfs_client::inum &ino, yfs_client::inum &last);

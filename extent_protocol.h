@@ -7,37 +7,48 @@
 
 typedef uint32_t blockid_t;
 
+/* check "action"; if not 0, print log "name error", return ret */
+#define CHECK(action, name, ret) {\
+    if((action) != 0){\
+        fprintf(stderr,"%s error\n",(name));\
+        fflush(stderr);\
+        return (ret);\
+    }\
+}
+
 class extent_protocol {
- public:
-  typedef int status;
-  typedef unsigned long long extentid_t;
-  enum xxstatus { OK, RPCERR, NOENT, IOERR };
-  enum rpc_numbers {
-    put = 0x6001,
-    get,
-    getattr,
-    remove,
-    create,
-    get_block_ids,
-    read_block,
-    write_block,
-    append_block,
-    complete
-  };
+public:
+    typedef int status;
+    typedef unsigned long long extentid_t;
+    enum xxstatus {
+        OK, RPCERR, NOENT, IOERR
+    };
+    enum rpc_numbers {
+        put = 0x6001,
+        get,
+        getattr,
+        remove,
+        create,
+        get_block_ids,
+        read_block,
+        write_block,
+        append_block,
+        complete
+    };
 
-  enum types {
-    T_DIR = 1,
-    T_FILE,
-    T_SYMLINK
-  };
+    enum types {
+        T_DIR = 1,
+        T_FILE,
+        T_SYMLINK
+    };
 
-  struct attr {
-    uint32_t type;
-    unsigned int atime;
-    unsigned int mtime;
-    unsigned int ctime;
-    unsigned int size;
-  };
+    struct attr {
+        uint32_t type;
+        unsigned int atime;
+        unsigned int mtime;
+        unsigned int ctime;
+        unsigned int size;
+    };
 };
 
 inline unmarshall &

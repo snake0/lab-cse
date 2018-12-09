@@ -36,7 +36,7 @@ int DataNode::init(const string &extent_dst, const string &namenode, const struc
     }
 
     /* Add your initialization here */
-
+    NewThread(this, &DataNode::ReportAlive);
     return 0;
 }
 
@@ -55,5 +55,12 @@ bool DataNode::WriteBlock(blockid_t bid, uint64_t offset, uint64_t len, const st
     block.replace(offset, len, buf);
     CHECK(ec->write_block(bid, block), "ec: read_block", false);
     return true;
+}
+
+void DataNode::ReportAlive() {
+    while (SendHeartbeat())
+        sleep(1);
+    fprintf(stderr, "datanode: failed to send heartbeat\n");
+    fflush(stderr);
 }
 
