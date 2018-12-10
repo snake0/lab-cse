@@ -13,9 +13,6 @@ void NameNode::init(const string &extent_dst, const string &lock_dst) {
     yfs = new yfs_client(extent_dst, lock_dst);
 
     /* Add your init logic here */
-    reg_datanodes_id.clear();
-    live_datanodes_id.clear();
-    datanode_heartbeat_count.clear();
     NewThread(this, &NameNode::CheckAlive);
 }
 
@@ -27,12 +24,9 @@ list<NameNode::LocatedBlock> NameNode::GetBlockLocations(yfs_client::inum ino) {
 
     list<blockid_t> block_ids;
     CHECK(ec->get_block_ids(ino, block_ids), "ec: get_blocks_ids", ret);
-    auto iter = block_ids.begin();
     uint offset = 0;
-    for (; iter != block_ids.end(); ++iter) {
-        assert(file_size > offset);
-        LocatedBlock block(*iter, offset, MIN(file_size - offset, BLOCK_SIZE), live_datanodes_id);
-        ret.push_back(block);
+    for (auto &iter : block_ids) {
+        ret.emplace_back(iter, offset, MIN(file_size - offset, BLOCK_SIZE), live_datanodes);
         offset += BLOCK_SIZE;
     }
     return ret;
@@ -51,21 +45,28 @@ bool NameNode::Complete(yfs_client::inum ino, uint32_t new_size) {
 
 NameNode::LocatedBlock NameNode::AppendBlock(yfs_client::inum ino) {
     extent_protocol::attr attr{};
-    CHECK(ec->getattr(ino, attr), "ec: getattr in AppendBlock", LocatedBlock(0, 0, 0, master_datanode));
+    CHECK(ec->getattr(ino, attr), "ec: getattr in AppendBlock", LocatedBlock(0, 0, 0, live_datanodes));
     uint file_size = attr.size;
 
     blockid_t bid;
-    CHECK(ec->append_block(ino, bid), "ec: append_block", LocatedBlock(0, 0, 0, master_datanode));
-    return LocatedBlock(bid, file_size, 0, master_datanode);
+    CHECK(ec->append_block(ino, bid), "ec: append_block", LocatedBlock(0, 0, 0, live_datanodes));
+    datanode_info[master_datanode].blocks.insert(bid);
+    for (auto &iter:live_datanodes)
+        if (!SameDatanode(master_datanode, iter))
+            ReplicateBlock(bid, master_datanode, iter);
+    return LocatedBlock(bid, file_size, 0, live_datanodes);
 }
 
 bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client::inum dst_dir_ino, string dst_name) {
     src_name += "/";
     dst_name += "/";
+
     string src_buf, dst_buf;
     CHECK(ec->get(src_dir_ino, src_buf), "ec: get src dir", false);
     CHECK(ec->get(dst_dir_ino, dst_buf), "ec: get dst dir", false);
+
     unsigned long start = src_buf.find(src_name);
+
     if (src_dir_ino == dst_dir_ino) {
         dst_buf.replace(start, src_name.length(), dst_name);
         src_buf = dst_buf;
@@ -74,8 +75,10 @@ bool NameNode::Rename(yfs_client::inum src_dir_ino, string src_name, yfs_client:
         dst_buf += src_buf.substr(start, end - start).replace(0, src_name.length(), dst_name);
         src_buf.replace(start, end - start, "");
     }
+
     CHECK(ec->put(src_dir_ino, src_buf), "ec: put src dir", false);
     CHECK(ec->put(dst_dir_ino, dst_buf), "ec: put dst dir", false);
+
     return true;
 }
 
@@ -86,6 +89,9 @@ bool NameNode::Mkdir(yfs_client::inum parent, string name, mode_t mode, yfs_clie
 
 bool NameNode::Create(yfs_client::inum parent, string name, mode_t mode, yfs_client::inum &ino_out) {
     CHECK(yfs->_create(parent, name.c_str(), mode, ino_out), "yfs: _create", false);
+    fprintf(stderr, "---- Create file : %llu\n", ino_out);
+    fflush(stderr);
+
     lc->acquire(ino_out);
     return true;
 }
@@ -119,17 +125,30 @@ bool NameNode::Unlink(yfs_client::inum parent, string name, yfs_client::inum ino
 }
 
 void NameNode::DatanodeHeartbeat(DatanodeIDProto id) {
-    datanode_heartbeat_count[id] = 0;
+    datanode_info[id].silent = 0;
 }
 
 void NameNode::RegisterDatanode(DatanodeIDProto id) {
-    reg_datanodes_id.push_back(id);
-    live_datanodes_id.push_back(id);
-    datanode_heartbeat_count[id] = 0;
+    set<blockid_t> to_replicate;
+
+    if (!InDatanodeList(reg_datanodes, id)) {
+        reg_datanodes.push_back(id);
+        live_datanodes.push_back(id);
+        if (reg_datanodes.empty()) {
+            datanode_info[id] = DatanodeInfo();
+            return;
+        }
+    } else
+        live_datanodes.push_back(id);
+
+    to_replicate = datanode_info[master_datanode].blocks;
+    for (auto &iter : to_replicate)
+        ReplicateBlock(iter, master_datanode, id);
+    datanode_info[id] = DatanodeInfo(0, to_replicate);
 }
 
 list<DatanodeIDProto> NameNode::GetDatanodes() {
-    return live_datanodes_id;
+    return live_datanodes;
 }
 
 bool NameNode::Readlink(yfs_client::inum ino, std::string &dest) {
@@ -142,12 +161,22 @@ void NameNode::GetFileInfo() {
 
 void NameNode::CheckAlive() {
     for (;;) {
-        auto iter = datanode_heartbeat_count.begin();
-        for (; iter != datanode_heartbeat_count.end(); ++iter) {
-            iter->second += 1;
-            if (iter->second > 5)
-                live_datanodes_id.remove(iter->first);
+        for (auto &iter : datanode_info) {
+            iter.second.silent += 1;
+            if (iter.second.silent > 3)
+                live_datanodes.remove(iter.first);
         }
         sleep(1);
     }
+}
+
+bool NameNode::InDatanodeList(const std::list<DatanodeIDProto> &list, const DatanodeIDProto &node) {
+    for (auto &iter : list)
+        if (SameDatanode(iter, node))
+            return true;
+    return false;
+}
+
+bool NameNode::SameDatanode(const DatanodeIDProto &node1, const DatanodeIDProto &node2) {
+    return node1.hostname() == node2.hostname();
 }

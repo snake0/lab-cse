@@ -1,5 +1,7 @@
 #include <utility>
 
+#include <utility>
+
 #ifndef NAMENODE_H_
 #define NAMENODE_H_
 
@@ -34,6 +36,12 @@ class NameNode {
         LocatedBlock(blockid_t block_id, uint64_t offset, uint64_t size, std::list<DatanodeIDProto> locs) :
                 block_id(block_id), offset(offset), size(size), locs(std::move(locs)) {}
     };
+    struct DatanodeInfo{
+        uint silent = 0;
+        std::set<blockid_t> blocks;
+        DatanodeInfo() = default;
+        DatanodeInfo(uint t, std::set<blockid_t> b) : silent(t), blocks(std::move(b)) {}
+    };
 private:
     extent_client *ec;
     lock_client_cache *lc;
@@ -42,11 +50,13 @@ private:
     std::map<yfs_client::inum, uint32_t> pendingWrite;
 
     /* Add your member variables/functions here */
-    std::list<DatanodeIDProto> reg_datanodes_id;
-    std::list<DatanodeIDProto> live_datanodes_id;
-    std::map<DatanodeIDProto, uint> datanode_heartbeat_count;
+    std::list<DatanodeIDProto> reg_datanodes;
+    std::list<DatanodeIDProto> live_datanodes;
+    std::map<DatanodeIDProto, DatanodeInfo> datanode_info;
 
     void CheckAlive();
+    static bool InDatanodeList(const std::list<DatanodeIDProto> &list, const DatanodeIDProto &node);
+    static bool SameDatanode(const DatanodeIDProto &node1,const DatanodeIDProto &node2);
 private:
     void GetFileInfo();
     bool RecursiveLookup(const std::string &path, yfs_client::inum &ino, yfs_client::inum &last);
